@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		B3769D2923F47C900015C9CB /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE58AF2E1E3EC538003669A8 /* libCorePlot-CocoaTouch.a */; };
-		DE20AC3C1E391A2B00665C7F /* LeaderboardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE20AC3B1E391A2B00665C7F /* LeaderboardTableViewController.swift */; };
-		DE20AC3E1E391F2400665C7F /* LeaderboardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE20AC3D1E391F2400665C7F /* LeaderboardTableViewCell.swift */; };
 		DE20AC411E39988D00665C7F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE20AC401E39988D00665C7F /* MapKit.framework */; };
 		DE20AC441E399B7600665C7F /* AnthillMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE20AC431E399B7600665C7F /* AnthillMapViewController.swift */; };
 		DE20AC461E39A42100665C7F /* AnthillAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE20AC451E39A42100665C7F /* AnthillAnnotation.swift */; };
@@ -18,15 +16,12 @@
 		DE235C461D4FBA3000EC5467 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE235C441D4FBA3000EC5467 /* Main.storyboard */; };
 		DE235C481D4FBA3000EC5467 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE235C471D4FBA3000EC5467 /* Assets.xcassets */; };
 		DE235C4B1D4FBA3000EC5467 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE235C491D4FBA3000EC5467 /* LaunchScreen.storyboard */; };
-		DE51B7061D524CD300BFEE5D /* HillsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE51B7051D524CD300BFEE5D /* HillsTableViewController.swift */; };
+		DE51B7061D524CD300BFEE5D /* SensorsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE51B7051D524CD300BFEE5D /* SensorsTableViewController.swift */; };
 		DE58AF331E3EE455003669A8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE58AF321E3EE455003669A8 /* QuartzCore.framework */; };
 		DE58AF351E3EE45C003669A8 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE58AF341E3EE45C003669A8 /* Accelerate.framework */; };
 		DE58AF371E3EEC9E003669A8 /* SensorDataPlotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE58AF361E3EEC9E003669A8 /* SensorDataPlotViewController.swift */; };
 		DE58AF391E3F0B36003669A8 /* CorePlot.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DE58AEDD1E3EC538003669A8 /* CorePlot.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DE58AF3E1E3FA9C5003669A8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE58AF3C1E3FA9C5003669A8 /* LoginViewController.swift */; };
-		DE58AF3F1E3FA9C5003669A8 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE58AF3D1E3FA9C5003669A8 /* LoginViewController.xib */; };
 		DE58AF411E3FBAA4003669A8 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE58AF401E3FBAA4003669A8 /* SettingsModel.swift */; };
-		DE7041791E3800E20019D4AE /* CompassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7041781E3800E20019D4AE /* CompassViewController.swift */; };
 		DEB6E7F91D4FBEA100898890 /* SensorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB6E7F81D4FBEA100898890 /* SensorModel.swift */; };
 		DEB6E7FB1D4FD23400898890 /* BLE.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB6E7FA1D4FD23400898890 /* BLE.swift */; };
 /* End PBXBuildFile section */
@@ -46,8 +41,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		DE20AC3B1E391A2B00665C7F /* LeaderboardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardTableViewController.swift; sourceTree = "<group>"; };
-		DE20AC3D1E391F2400665C7F /* LeaderboardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardTableViewCell.swift; sourceTree = "<group>"; };
 		DE20AC401E39988D00665C7F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		DE20AC431E399B7600665C7F /* AnthillMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnthillMapViewController.swift; sourceTree = "<group>"; };
 		DE20AC451E39A42100665C7F /* AnthillAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnthillAnnotation.swift; sourceTree = "<group>"; };
@@ -58,7 +51,7 @@
 		DE235C471D4FBA3000EC5467 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DE235C4A1D4FBA3000EC5467 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DE235C4C1D4FBA3000EC5467 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DE51B7051D524CD300BFEE5D /* HillsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HillsTableViewController.swift; sourceTree = "<group>"; };
+		DE51B7051D524CD300BFEE5D /* SensorsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorsTableViewController.swift; sourceTree = "<group>"; };
 		DE58AEDD1E3EC538003669A8 /* CorePlot.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CorePlot.framework; sourceTree = SOURCE_ROOT; };
 		DE58AEDF1E3EC538003669A8 /* CorePlot-CocoaTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CorePlot-CocoaTouch.h"; sourceTree = "<group>"; };
 		DE58AEE01E3EC538003669A8 /* CPTAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTAnimation.h; sourceTree = "<group>"; };
@@ -143,10 +136,7 @@
 		DE58AF321E3EE455003669A8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		DE58AF341E3EE45C003669A8 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		DE58AF361E3EEC9E003669A8 /* SensorDataPlotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorDataPlotViewController.swift; sourceTree = "<group>"; };
-		DE58AF3C1E3FA9C5003669A8 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		DE58AF3D1E3FA9C5003669A8 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		DE58AF401E3FBAA4003669A8 /* SettingsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
-		DE7041781E3800E20019D4AE /* CompassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompassViewController.swift; sourceTree = "<group>"; };
 		DEB6E7F81D4FBEA100898890 /* SensorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorModel.swift; sourceTree = "<group>"; };
 		DEB6E7FA1D4FD23400898890 /* BLE.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLE.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -166,15 +156,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		DE20AC3A1E3919F400665C7F /* Leaderboard */ = {
-			isa = PBXGroup;
-			children = (
-				DE20AC3B1E391A2B00665C7F /* LeaderboardTableViewController.swift */,
-				DE20AC3D1E391F2400665C7F /* LeaderboardTableViewCell.swift */,
-			);
-			name = Leaderboard;
-			sourceTree = "<group>";
-		};
 		DE20AC3F1E39988C00665C7F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -218,9 +199,6 @@
 				DE20AC471E39AAAB00665C7F /* AnteaterREST.swift */,
 				DE235C3E1D4FBA3000EC5467 /* AppDelegate.swift */,
 				DE235C471D4FBA3000EC5467 /* Assets.xcassets */,
-				DE7041751E3800160019D4AE /* Compass */,
-				DE20AC3A1E3919F400665C7F /* Leaderboard */,
-				DE58AF3B1E3FA8F8003669A8 /* Login Screen */,
 				DE20AC421E399AFB00665C7F /* Map */,
 				DEB6E7F71D4FBE6300898890 /* Sensor List and Plot */,
 				DE235C441D4FBA3000EC5467 /* Main.storyboard */,
@@ -328,29 +306,12 @@
 			path = Anteater;
 			sourceTree = "<group>";
 		};
-		DE58AF3B1E3FA8F8003669A8 /* Login Screen */ = {
-			isa = PBXGroup;
-			children = (
-				DE58AF3C1E3FA9C5003669A8 /* LoginViewController.swift */,
-				DE58AF3D1E3FA9C5003669A8 /* LoginViewController.xib */,
-			);
-			name = "Login Screen";
-			sourceTree = "<group>";
-		};
-		DE7041751E3800160019D4AE /* Compass */ = {
-			isa = PBXGroup;
-			children = (
-				DE7041781E3800E20019D4AE /* CompassViewController.swift */,
-			);
-			name = Compass;
-			sourceTree = "<group>";
-		};
 		DEB6E7F71D4FBE6300898890 /* Sensor List and Plot */ = {
 			isa = PBXGroup;
 			children = (
 				DEB6E7F81D4FBEA100898890 /* SensorModel.swift */,
 				DEB6E7FA1D4FD23400898890 /* BLE.swift */,
-				DE51B7051D524CD300BFEE5D /* HillsTableViewController.swift */,
+				DE51B7051D524CD300BFEE5D /* SensorsTableViewController.swift */,
 				DE58AF361E3EEC9E003669A8 /* SensorDataPlotViewController.swift */,
 			);
 			name = "Sensor List and Plot";
@@ -419,7 +380,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE58AF3F1E3FA9C5003669A8 /* LoginViewController.xib in Resources */,
 				DE235C4B1D4FBA3000EC5467 /* LaunchScreen.storyboard in Resources */,
 				DE235C481D4FBA3000EC5467 /* Assets.xcassets in Resources */,
 				DE235C461D4FBA3000EC5467 /* Main.storyboard in Resources */,
@@ -433,16 +393,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE58AF3E1E3FA9C5003669A8 /* LoginViewController.swift in Sources */,
 				DE20AC441E399B7600665C7F /* AnthillMapViewController.swift in Sources */,
-				DE20AC3E1E391F2400665C7F /* LeaderboardTableViewCell.swift in Sources */,
 				DE58AF371E3EEC9E003669A8 /* SensorDataPlotViewController.swift in Sources */,
 				DEB6E7FB1D4FD23400898890 /* BLE.swift in Sources */,
 				DE20AC461E39A42100665C7F /* AnthillAnnotation.swift in Sources */,
-				DE51B7061D524CD300BFEE5D /* HillsTableViewController.swift in Sources */,
-				DE20AC3C1E391A2B00665C7F /* LeaderboardTableViewController.swift in Sources */,
+				DE51B7061D524CD300BFEE5D /* SensorsTableViewController.swift in Sources */,
 				DE20AC481E39AAAB00665C7F /* AnteaterREST.swift in Sources */,
-				DE7041791E3800E20019D4AE /* CompassViewController.swift in Sources */,
 				DE235C3F1D4FBA3000EC5467 /* AppDelegate.swift in Sources */,
 				DEB6E7F91D4FBEA100898890 /* SensorModel.swift in Sources */,
 				DE58AF411E3FBAA4003669A8 /* SettingsModel.swift in Sources */,

@@ -19,15 +19,15 @@ class SensorDataPlotViewController: UIViewController, CPTScatterPlotDataSource {
     }
     
     var g: CPTXYGraph?
-    var hill: Hill?
+    var sensor: Sensor?
     var humidityReadings: [Reading]?
     var temperatureReadings: [Reading]?
     var earliestDate: Date = Date.distantPast
     var latestDate: Date = Date()
     
-    convenience init(hill: Hill?) {
+    convenience init(sensor: Sensor?) {
         self.init(nibName: nil, bundle: nil)
-        self.hill = hill
+        self.sensor = sensor
     }
     
     override func viewDidLoad() {

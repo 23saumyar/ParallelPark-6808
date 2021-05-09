@@ -1,6 +1,6 @@
 //
 //  SensorModel.swift
-//  Anteater
+//  ParallelPark
 //
 //  Created by Justin Anderson on 8/1/16.
 //  Copyright © 2016 MIT. All rights reserved.
@@ -11,20 +11,23 @@ import UIKit
 import CoreBluetooth
 
 protocol SensorModelDelegate {
-    func sensorModel(_ model: SensorModel, didChangeActiveHill hill: Hill?)
-    func sensorModel(_ model: SensorModel, didReceiveReadings readings: [Reading], forHill hill: Hill?)
+    func sensorModel(_ model: SensorModel, didChangeActiveSensor sensor: Sensor?)
+    func sensorModel(_ model: SensorModel, didReceiveReadings readings: [Reading], forSensor sensor: Sensor?)
 }
 
 extension Notification.Name {
-    public static let SensorModelActiveHillChanged = Notification.Name(rawValue: "SensorModelActiveHillChangedNotification")
-    public static let SensorModelReadingsChanged = Notification.Name(rawValue: "SensorModelHillReadingsChangedNotification")
+    public static let SensorModelActiveSensorChanged = Notification.Name(rawValue: "SensorModelActiveSensorChangedNotification")
+    public static let SensorModelReadingsChanged = Notification.Name(rawValue: "SensorModelSensorReadingsChangedNotification")
 }
 
 enum ReadingType: Int {
     case Unknown = -1
-    case Humidity = 2
-    case Temperature = 1
     case Error = 0
+    
+    case Distance = 1
+    case IMU_g = 2
+    case IMU_a = 3
+    case IMU_m = 4
 }
 
 struct Reading {
@@ -47,24 +50,28 @@ struct Reading {
 extension Reading: CustomStringConvertible {
     var description: String {
         let formatter = NumberFormatter()
-        formatter.minimumFractionDigits = 2
-        formatter.maximumFractionDigits = 2
+        formatter.minimumFractionDigits = 4
+        formatter.maximumFractionDigits = 4
         guard let numberString = formatter.string(from: NSNumber(value: self.value)) else {
             print("Double \"\(value)\" couldn't be formatted by NumberFormatter")
             return "NaN"
         }
         switch type {
-        case .Temperature:
-            return "\(numberString)°F"
-        case .Humidity:
-            return "\(numberString)%"
+        case .Distance:
+            return "\(numberString)m" //TODO: change to correct units
+        case .IMU_g:
+            return "\(numberString)deg"
+        case .IMU_a:
+            return "\(numberString)m/s^2"
+        case .IMU_m:
+            return "\(numberString)mag" //TODO: fix units
         default:
             return "\(type)"
         }
     }
 }
 
-struct Hill {
+struct Sensor {
     var readings: [Reading]
     var name: String
     
@@ -74,7 +81,7 @@ struct Hill {
     }
 }
 
-extension Hill: CustomStringConvertible, Hashable, Equatable {
+extension Sensor: CustomStringConvertible, Hashable, Equatable {
     var description: String {
         return name
     }
@@ -84,7 +91,7 @@ extension Hill: CustomStringConvertible, Hashable, Equatable {
     }
 }
 
-func ==(lhs: Hill, rhs: Hill) -> Bool {
+func ==(lhs: Sensor, rhs: Sensor) -> Bool {
     return lhs.name == rhs.name
 }
 
@@ -95,8 +102,8 @@ class SensorModel : BLEDelegate{
     static let shared = SensorModel()
 
     var delegate: SensorModelDelegate?
-    var sensorReadings: [ReadingType: [Reading]] = [.Humidity: [], .Temperature: []]
-    var activeHill: Hill?
+    var sensorReadings: [ReadingType: [Reading]] = [.Distance: [], .IMU_g: [], .IMU_a: [], .IMU_m:[]]
+    var activeSensor: Sensor?
     var ble: BLE?
     var activePeripheral: CBPeripheral?
     
@@ -107,7 +114,7 @@ class SensorModel : BLEDelegate{
     
     func ble(didUpdateState state: BLEState) {
         if(state == BLEState.poweredOn){
-            // initiate scaning for anthills
+            // initiate scaning for sensors
             ble?.startScanning(timeout: 10)
         }
     }
@@ -117,18 +124,18 @@ class SensorModel : BLEDelegate{
     }
     
     func ble(didConnectToPeripheral peripheral: CBPeripheral) {
-        activeHill = Hill(name: peripheral.name!)
+        activeSensor = Sensor(name: peripheral.name!)
         activePeripheral = peripheral
-        delegate?.sensorModel(self, didChangeActiveHill: activeHill)
+        delegate?.sensorModel(self, didChangeActiveSensor: activeSensor)
         
         
         
     }
     
     func ble(didDisconnectFromPeripheral peripheral: CBPeripheral) {
-        if (peripheral.name == activeHill?.name){
-            activeHill = nil
-            delegate?.sensorModel(self, didChangeActiveHill: activeHill)
+        if (peripheral.name == activeSensor?.name){
+            activeSensor = nil
+            delegate?.sensorModel(self, didChangeActiveSensor: activeSensor)
             ble?.startScanning(timeout: 10)
         }
     }
@@ -142,14 +149,18 @@ class SensorModel : BLEDelegate{
 
         // convert a Substring to a Double
         let value = Double(substring.trimmingCharacters(in: .whitespacesAndNewlines))!
-        var r = ReadingType.Temperature
-        if (str.hasPrefix("H")){
-            r = ReadingType.Humidity
+        var r = ReadingType.Distance
+        if (str.hasPrefix("IMU_g")){ //TODO: change this
+            r = ReadingType.IMU_g
+        } else if (str.hasPrefix("IMU_a")){
+            r = ReadingType.IMU_a
+        } else if (str.hasPrefix("IMU_m")){
+            r = ReadingType.IMU_m
         }
         
         let reading = Reading(type: r, value: value, sensorId: peripheral.name)
-        activeHill?.readings.append(reading)
-        delegate?.sensorModel(self, didReceiveReadings: [reading], forHill: activeHill)
+        activeSensor?.readings.append(reading)
+        delegate?.sensorModel(self, didReceiveReadings: [reading], forSensor: activeSensor)
     }
     
     

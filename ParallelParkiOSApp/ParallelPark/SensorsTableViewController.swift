@@ -8,9 +8,14 @@
 
 import UIKit
 
-class HillsTableViewController: UITableViewController, SensorModelDelegate {
+class SensorsTableViewController: UITableViewController, SensorModelDelegate {
 
-    var hills: [Hill] = []
+    var sensors: [Sensor] = []
+    var frontSensor: Sensor;
+    var mirrorSensor: Sensor;
+    var sideSensor: Sensor;
+    var backSensor: Sensor;
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,16 +29,37 @@ class HillsTableViewController: UITableViewController, SensorModelDelegate {
 
     // MARK: - SensorModel delegation
     
-    func sensorModel(_ model: SensorModel, didChangeActiveHill hill: Hill?) {
-        if let hill = hill {
-            hills = [hill]
+    func sensorModel(_ model: SensorModel, didChangeActiveSensor sensor: Sensor?) {
+        // TODO: determine what sensors are which ones
+        if sensor?.name == "front" {
+            frontSensor = sensor!
+            sensors.append(frontSensor)
+        } else if sensor?.name == "mirror" {
+            mirrorSensor = sensor!
+            sensors.append(mirrorSensor)
+        } else if sensor?.name == "side" {
+            sideSensor = sensor!
+            sensors.append(sideSensor)
+        } else if sensor?.name == "back" {
+            backSensor = sensor!
+            sensors.append(backSensor)
         }
         self.tableView.reloadData()
     }
     
-    func sensorModel(_ model: SensorModel, didReceiveReadings readings: [Reading], forHill hill: Hill?) {
-        if let hill = hill {
-            hills = [hill]
+    func sensorModel(_ model: SensorModel, didReceiveReadings readings: [Reading], forSensor sensor: Sensor?) {
+        if sensor?.name == "front" {
+            frontSensor = sensor!
+            sensors.append(frontSensor)
+        } else if sensor?.name == "mirror" {
+            mirrorSensor = sensor!
+            sensors.append(mirrorSensor)
+        } else if sensor?.name == "side" {
+            sideSensor = sensor!
+            sensors.append(sideSensor)
+        } else if sensor?.name == "back" {
+            backSensor = sensor!
+            sensors.append(backSensor)
         }
         self.tableView.reloadData()
     }
@@ -45,8 +71,8 @@ class HillsTableViewController: UITableViewController, SensorModelDelegate {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let hill = SensorModel.shared.activeHill {
-            return 1 + hill.readings.count
+        if let sensor = SensorModel.shared.activeSensor {
+            return 1 + sensor.readings.count
         } else {
             return 1
         }
@@ -54,17 +80,17 @@ class HillsTableViewController: UITableViewController, SensorModelDelegate {
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let hill = SensorModel.shared.activeHill else {
+        guard let sensor = SensorModel.shared.activeSensor else {
             return tableView.dequeueReusableCell(withIdentifier: "noConnCell", for: indexPath)
         }
         switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "plotCell", for: indexPath)
             cell.imageView?.image = #imageLiteral(resourceName: "anteater-logo")
-            cell.textLabel?.text = "\(hill.name) - \(hill.readings.count) readings"
+            cell.textLabel?.text = "\(sensor.name) - \(sensor.readings.count) readings"
             return cell
         default:
-            let reading = hill.readings.reversed()[indexPath.row - 1]
+            let reading = sensor.readings.reversed()[indexPath.row - 1]
             let cell = tableView.dequeueReusableCell(withIdentifier: "sensorCell", for: indexPath)
             
             let formatter = DateFormatter()
@@ -73,14 +99,14 @@ class HillsTableViewController: UITableViewController, SensorModelDelegate {
 
             cell.textLabel?.text = "\(reading)"
             cell.detailTextLabel?.text = formatter.string(from: reading.date)
-            switch reading.type {
-            case .Temperature:
-                cell.imageView?.image = #imageLiteral(resourceName: "thermo")
-            case .Humidity:
-                cell.imageView?.image = #imageLiteral(resourceName: "humidity")
-            default:
-                break
-            }
+//            switch reading.type {
+//            case .Temperature:
+//                cell.imageView?.image = #imageLiteral(resourceName: "thermo")
+//            case .Humidity:
+//                cell.imageView?.image = #imageLiteral(resourceName: "humidity")
+//            default:
+//                break
+//            }
             
             return cell
         }
@@ -89,7 +115,7 @@ class HillsTableViewController: UITableViewController, SensorModelDelegate {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             // Push Core Plot graph
-            let vc = SensorDataPlotViewController(hill: SensorModel.shared.activeHill)
+            let vc = SensorDataPlotViewController(sensor: SensorModel.shared.activeSensor)
             navigationController?.pushViewController(vc, animated: true)
         }
     }
