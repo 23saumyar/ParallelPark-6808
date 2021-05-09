@@ -16,7 +16,7 @@
 		DE235C461D4FBA3000EC5467 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE235C441D4FBA3000EC5467 /* Main.storyboard */; };
 		DE235C481D4FBA3000EC5467 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE235C471D4FBA3000EC5467 /* Assets.xcassets */; };
 		DE235C4B1D4FBA3000EC5467 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE235C491D4FBA3000EC5467 /* LaunchScreen.storyboard */; };
-		DE51B7061D524CD300BFEE5D /* SensorsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE51B7051D524CD300BFEE5D /* SensorsTableViewController.swift */; };
+		DE51B7061D524CD300BFEE5D /* InProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE51B7051D524CD300BFEE5D /* InProgressViewController.swift */; };
 		DE58AF331E3EE455003669A8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE58AF321E3EE455003669A8 /* QuartzCore.framework */; };
 		DE58AF351E3EE45C003669A8 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE58AF341E3EE45C003669A8 /* Accelerate.framework */; };
 		DE58AF371E3EEC9E003669A8 /* SensorDataPlotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE58AF361E3EEC9E003669A8 /* SensorDataPlotViewController.swift */; };
@@ -51,7 +51,7 @@
 		DE235C471D4FBA3000EC5467 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DE235C4A1D4FBA3000EC5467 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DE235C4C1D4FBA3000EC5467 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DE51B7051D524CD300BFEE5D /* SensorsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorsTableViewController.swift; sourceTree = "<group>"; };
+		DE51B7051D524CD300BFEE5D /* InProgressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InProgressViewController.swift; sourceTree = "<group>"; };
 		DE58AEDD1E3EC538003669A8 /* CorePlot.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CorePlot.framework; sourceTree = SOURCE_ROOT; };
 		DE58AEDF1E3EC538003669A8 /* CorePlot-CocoaTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CorePlot-CocoaTouch.h"; sourceTree = "<group>"; };
 		DE58AEE01E3EC538003669A8 /* CPTAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTAnimation.h; sourceTree = "<group>"; };
@@ -311,7 +311,7 @@
 			children = (
 				DEB6E7F81D4FBEA100898890 /* SensorModel.swift */,
 				DEB6E7FA1D4FD23400898890 /* BLE.swift */,
-				DE51B7051D524CD300BFEE5D /* SensorsTableViewController.swift */,
+				DE51B7051D524CD300BFEE5D /* InProgressViewController.swift */,
 				DE58AF361E3EEC9E003669A8 /* SensorDataPlotViewController.swift */,
 			);
 			name = "Sensor List and Plot";
@@ -397,7 +397,7 @@
 				DE58AF371E3EEC9E003669A8 /* SensorDataPlotViewController.swift in Sources */,
 				DEB6E7FB1D4FD23400898890 /* BLE.swift in Sources */,
 				DE20AC461E39A42100665C7F /* AnthillAnnotation.swift in Sources */,
-				DE51B7061D524CD300BFEE5D /* SensorsTableViewController.swift in Sources */,
+				DE51B7061D524CD300BFEE5D /* InProgressViewController.swift in Sources */,
 				DE20AC481E39AAAB00665C7F /* AnteaterREST.swift in Sources */,
 				DE235C3F1D4FBA3000EC5467 /* AppDelegate.swift in Sources */,
 				DEB6E7F91D4FBEA100898890 /* SensorModel.swift in Sources */,
