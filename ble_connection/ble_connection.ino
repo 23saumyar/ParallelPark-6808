@@ -1,9 +1,13 @@
 #include "ArduinoBLE.h"
  
-BLEService ledService("713D0000-503E-4C75-BA94-3148F18D941E"); // BLE LED Service
+// BLEService ledService("713D0000-503E-4C75-BA94-3148F18D941E"); // BLE LED Service
+BLEService ledService("mirror"); // BLE LED Service
+
  
 // BLE LED Switch Characteristic - custom 128-bit UUID, read and writable by central
-BLEStringCharacteristic switchCharacteristic("713D0002-503E-4C75-BA94-3148F18D941E", BLERead | BLENotify, 20);
+//BLEStringCharacteristic switchCharacteristic("713D0002-503E-4C75-BA94-3148F18D941E", BLERead | BLENotify, 20);
+BLEStringCharacteristic switchCharacteristic("mirror", BLERead | BLENotify, 20);
+
  
 #define TRIGGER_PIN   7
 #define ECHO_PIN      8
@@ -28,7 +32,7 @@ void setup() {
   }
  
   // set advertised local name and service UUID:
-  BLE.setLocalName("ultrasonic");
+  BLE.setLocalName("mirror");
   BLE.setAdvertisedService(ledService);
  
   // add the characteristic to the service
@@ -44,9 +48,15 @@ void setup() {
   BLE.advertise();
  
   Serial.println("BLE LED Peripheral");
+//  Serial.println(BLE.localName());
 }
 
 void loop() {
+  // print BLE Peripheral Name:
+//  Serial.println("Trying to print BLE Name:");
+//  if 
+//  Serial.println(BLE.localName());
+  
   // listen for BLE peripherals to connect:
   BLEDevice central = BLE.central();
  
