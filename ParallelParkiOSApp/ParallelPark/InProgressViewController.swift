@@ -48,6 +48,8 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
             backSensor = sensor!
             sensors.append(backSensor!)
         }
+        NSLog("change active sensor")
+        NSLog(sensor!.name)
 //        self.tableView.reloadData()
     }
     
@@ -65,6 +67,10 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
             backSensor = sensor!
             sensors.append(backSensor!)
         }
+        NSLog("recieve readings")
+        NSLog(sensor!.name)
+        NSLog(readings.debugDescription)
+
 //        self.tableView.reloadData()
     }
     

@@ -76,6 +76,7 @@ struct Sensor {
     var name: String
     
     init(name: String) {
+        NSLog(name)
         readings = []
         self.name = name
     }
@@ -97,7 +98,7 @@ func ==(lhs: Sensor, rhs: Sensor) -> Bool {
 
 class SensorModel : BLEDelegate{
     
-    static let kBLE_SCAN_TIMEOUT = 10000.0
+    static let kBLE_SCAN_TIMEOUT = 10000000.0
     
     static let shared = SensorModel()
 
