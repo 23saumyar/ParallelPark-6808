@@ -67,6 +67,81 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
 //        self.tableView.reloadData()
     }
     
+/*
+parking pseudo code:
+    
+
+    # if user clicks start, state = 1
+
+    # state 1 - preparing starting position
+
+    # while in state 1:
+        # if mirror in range (3ft+threshold) and side in range (3ft+threshold):
+            # store IMU measurements to determine straightness later
+            # command user to begin backing up until the back measurement goes over 3 ft
+            # switch state
+
+        # if mirror in range and side > (3ft+threshold):
+            # command user to move up until both sensors have measurements in range
+
+        # if mirror > (3ft+threshold) and side in range
+            # command user to back up until both sensors have measurements in range
+        
+        # else:
+            # command user to pull up about 3 feet from the car in front of the desired parking spot and try again
+
+
+    # state 2 - backing up until ready to turn wheel
+
+    # while in state 2:
+        # if mirror in range (3ft+threshold) and side in range (3ft+threshold):
+            # command user to begin backing up until the back measurement goes over 3 ft
+            # switch to state 3
+
+        # else if mirror in range and side > range:
+            # command user to turn the wheel one full rotation to the right, making sure no cars are coming, and then start moving backwards slowly
+
+        # else:
+            # print your position doesn't seem right, perhaps try again
+            # switch to state 1
+
+
+    # state 3 - backing up diagonally into spot
+
+    # while in state 3:
+        # check angle
+        # if angle ~ 45 degrees
+            # mirror < (1ft+threshold) or distance starts increasing:
+                # command user to stop, mirror should be at vehicle's tail light
+                # command user to rotate wheel fully to the left and continue backing up until IMU measurements match OG measurements indicating straightened out
+                # command user to straighten wheel
+                # switch to state 4
+        # if angle > 45 degrees:
+            # command user to turn wheel a little in (?) direction
+        # if angle < 45 degrees:
+            # command user to turn wheel a little in (?) direction
+
+
+    # state 4 - straighten wheel and center
+
+    # while in state 4:
+        # if abs(front-back) < threshold (?):
+            # print congratulations!
+            # switch to state 5
+        # else if front > back:
+            # slowly back up
+        # else if back > front:
+            # slowly inch up
+
+
+    # state 5 - completed
+
+    # display completed screen
+
+*/
+    
+    
+    
     // MARK: - Table view data source
 
 //    override func numberOfSections(in tableView: UITableView) -> Int {
