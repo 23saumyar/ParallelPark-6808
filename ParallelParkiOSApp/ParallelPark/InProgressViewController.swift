@@ -23,7 +23,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         SensorModel.shared.delegate = self
-        park()
+        // park()
     }
 
     override func didReceiveMemoryWarning() {
