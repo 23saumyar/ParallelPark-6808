@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B3769D2923F47C900015C9CB /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE58AF2E1E3EC538003669A8 /* libCorePlot-CocoaTouch.a */; };
+		DB6C55D726486FD200DDDC1A /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6C55D626486FD200DDDC1A /* StartViewController.swift */; };
+		DB6C55D92648707700DDDC1A /* FinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6C55D82648707700DDDC1A /* FinishViewController.swift */; };
 		DE20AC411E39988D00665C7F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE20AC401E39988D00665C7F /* MapKit.framework */; };
 		DE20AC441E399B7600665C7F /* AnthillMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE20AC431E399B7600665C7F /* AnthillMapViewController.swift */; };
 		DE20AC461E39A42100665C7F /* AnthillAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE20AC451E39A42100665C7F /* AnthillAnnotation.swift */; };
@@ -19,7 +21,6 @@
 		DE51B7061D524CD300BFEE5D /* InProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE51B7051D524CD300BFEE5D /* InProgressViewController.swift */; };
 		DE58AF331E3EE455003669A8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE58AF321E3EE455003669A8 /* QuartzCore.framework */; };
 		DE58AF351E3EE45C003669A8 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE58AF341E3EE45C003669A8 /* Accelerate.framework */; };
-		DE58AF371E3EEC9E003669A8 /* SensorDataPlotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE58AF361E3EEC9E003669A8 /* SensorDataPlotViewController.swift */; };
 		DE58AF391E3F0B36003669A8 /* CorePlot.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DE58AEDD1E3EC538003669A8 /* CorePlot.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DE58AF411E3FBAA4003669A8 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE58AF401E3FBAA4003669A8 /* SettingsModel.swift */; };
 		DEB6E7F91D4FBEA100898890 /* SensorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB6E7F81D4FBEA100898890 /* SensorModel.swift */; };
@@ -41,6 +42,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DB6C55D626486FD200DDDC1A /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		DB6C55D82648707700DDDC1A /* FinishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishViewController.swift; sourceTree = "<group>"; };
 		DE20AC401E39988D00665C7F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		DE20AC431E399B7600665C7F /* AnthillMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnthillMapViewController.swift; sourceTree = "<group>"; };
 		DE20AC451E39A42100665C7F /* AnthillAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnthillAnnotation.swift; sourceTree = "<group>"; };
@@ -135,7 +138,6 @@
 		DE58AF2E1E3EC538003669A8 /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCorePlot-CocoaTouch.a"; sourceTree = SOURCE_ROOT; };
 		DE58AF321E3EE455003669A8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		DE58AF341E3EE45C003669A8 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
-		DE58AF361E3EEC9E003669A8 /* SensorDataPlotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorDataPlotViewController.swift; sourceTree = "<group>"; };
 		DE58AF401E3FBAA4003669A8 /* SettingsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		DEB6E7F81D4FBEA100898890 /* SensorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorModel.swift; sourceTree = "<group>"; };
 		DEB6E7FA1D4FD23400898890 /* BLE.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLE.swift; sourceTree = "<group>"; };
@@ -312,7 +314,8 @@
 				DEB6E7F81D4FBEA100898890 /* SensorModel.swift */,
 				DEB6E7FA1D4FD23400898890 /* BLE.swift */,
 				DE51B7051D524CD300BFEE5D /* InProgressViewController.swift */,
-				DE58AF361E3EEC9E003669A8 /* SensorDataPlotViewController.swift */,
+				DB6C55D626486FD200DDDC1A /* StartViewController.swift */,
+				DB6C55D82648707700DDDC1A /* FinishViewController.swift */,
 			);
 			name = "Sensor List and Plot";
 			sourceTree = "<group>";
@@ -344,6 +347,9 @@
 		DE235C331D4FBA3000EC5467 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					start,
+				);
 				LastSwiftUpdateCheck = 0800;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = MIT;
@@ -394,14 +400,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE20AC441E399B7600665C7F /* AnthillMapViewController.swift in Sources */,
-				DE58AF371E3EEC9E003669A8 /* SensorDataPlotViewController.swift in Sources */,
 				DEB6E7FB1D4FD23400898890 /* BLE.swift in Sources */,
 				DE20AC461E39A42100665C7F /* AnthillAnnotation.swift in Sources */,
 				DE51B7061D524CD300BFEE5D /* InProgressViewController.swift in Sources */,
+				DB6C55D726486FD200DDDC1A /* StartViewController.swift in Sources */,
 				DE20AC481E39AAAB00665C7F /* AnteaterREST.swift in Sources */,
 				DE235C3F1D4FBA3000EC5467 /* AppDelegate.swift in Sources */,
 				DEB6E7F91D4FBEA100898890 /* SensorModel.swift in Sources */,
 				DE58AF411E3FBAA4003669A8 /* SettingsModel.swift in Sources */,
+				DB6C55D92648707700DDDC1A /* FinishViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

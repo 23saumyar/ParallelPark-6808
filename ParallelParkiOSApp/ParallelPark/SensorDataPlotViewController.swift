@@ -75,7 +75,7 @@ class SensorDataPlotViewController: UIViewController, CPTScatterPlotDataSource {
 
     override func viewDidAppear(_ animated: Bool) {
         // Any change while viewing the graph means we're not looking at the same hill anymore, so the graph isn't valid. Stop watching for new readings.
-        NotificationCenter.default.addObserver(forName: .SensorModelActiveHillChanged, object: nil, queue: nil) { [weak self] (notification) in
+        NotificationCenter.default.addObserver(forName: .SensorModelActiveSensorChanged, object: nil, queue: nil) { [weak self] (notification) in
             if let unwrappedSelf = self {
                 NotificationCenter.default.removeObserver(unwrappedSelf)
             }
@@ -88,15 +88,15 @@ class SensorDataPlotViewController: UIViewController, CPTScatterPlotDataSource {
     }
 
     @objc func handleNotification(notification: Notification) {
-        guard let hill = notification.object as? Hill else {
+        guard let sensor = notification.object as? Sensor else {
             return
         }
-        self.hill = hill
+        self.sensor = sensor
         reloadData()
     }
     
     func reloadData() {
-        guard let hill = self.hill else {
+        guard let sensor = self.sensor else {
             return
         }
         let boundedReadings = hill.readings
