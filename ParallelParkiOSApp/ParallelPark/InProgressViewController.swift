@@ -23,6 +23,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         SensorModel.shared.delegate = self
+        // park()
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,14 +75,45 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
     }
     
 /*
-parking pseudo code:
+// working parking pseudo code:
     
+    func park() {
+        
+        var state: Int = 0
+        var threshold: Int = 0
+        var threeFeetInMillimeter = 3*305
+        
+        // if user clicks start:
+            // state = 1
+        
+        while state == 1 {
+            // update side and mirror values
+            
+            // if inRange(mirror, threeFeetInMillimeter, threshold) && inRange(side, threeFeetInMillimeter, threshold {
+                // store IMU measurements
+                // command user to begin backing up until the back measurement goes over 3 ft
+                state = 2
+        // } else if inRange(mirror, threeFeetInMillimeter, threshold) && (side > (threeFeetInMillimeter+threshold)) {
+                // command user to move up until both sensors have measurements in range
+        // } else if inRange(side, threeFeetInMillimeter, threshold) && (mirror > (threeFeetInMillimeter+threshold)) {
+                // command user to back up until both sensors have measurements in range
 
+        }
+        
+    }
+    
+    
+*/
+    
+/*
+     
+OG Parking Pseudo Code
+     
     # if user clicks start, state = 1
+     
+    // state 1 - preparing starting position
 
-    # state 1 - preparing starting position
-
-    # while in state 1:
+    while state == 1:
         # if mirror in range (3ft+threshold) and side in range (3ft+threshold):
             # store IMU measurements to determine straightness later
             # command user to begin backing up until the back measurement goes over 3 ft
@@ -97,9 +129,9 @@ parking pseudo code:
             # command user to pull up about 3 feet from the car in front of the desired parking spot and try again
 
 
-    # state 2 - backing up until ready to turn wheel
+    // state 2 - backing up until ready to turn wheel
 
-    # while in state 2:
+    while state == 2:
         # if mirror in range (3ft+threshold) and side in range (3ft+threshold):
             # command user to begin backing up until the back measurement goes over 3 ft
             # switch to state 3
@@ -112,9 +144,9 @@ parking pseudo code:
             # switch to state 1
 
 
-    # state 3 - backing up diagonally into spot
+    // state 3 - backing up diagonally into spot
 
-    # while in state 3:
+    while state == 3:
         # check angle
         # if angle ~ 45 degrees
             # mirror < (1ft+threshold) or distance starts increasing:
@@ -128,9 +160,9 @@ parking pseudo code:
             # command user to turn wheel a little in (?) direction
 
 
-    # state 4 - straighten wheel and center
+    // state 4 - straighten wheel and center
 
-    # while in state 4:
+    while state == 4:
         # if abs(front-back) < threshold (?):
             # print congratulations!
             # switch to state 5
@@ -140,11 +172,29 @@ parking pseudo code:
             # slowly inch up
 
 
-    # state 5 - completed
-
-    # display completed screen
+    // state 5 - completed
+     
+     if state == 5:
+        # display completed screen
+        state = 0
 
 */
+    
+// parking helper functions
+    
+    // determine whether a number is within the distance+threshold of another number
+    func inRange(number: Int, target: Int, threshold: Int) -> Bool {
+        if number > (target-threshold) && number < (target+threshold) {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    // calculate and return angle of car compared to original measurement based on latest IMU readings
+    func caclulateAngle() {
+        return
+    }
     
     
     
