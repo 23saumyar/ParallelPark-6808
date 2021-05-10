@@ -18,12 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         sensorModel = SensorModel.shared
         
-        if SettingsModel.username == nil {
-            DispatchQueue.main.async {
-                let loginVC = LoginViewController(nibName: nil, bundle: nil)
-                self.window?.rootViewController?.present(loginVC, animated: true, completion: nil)
-            }
-        }
         return true
     }
 

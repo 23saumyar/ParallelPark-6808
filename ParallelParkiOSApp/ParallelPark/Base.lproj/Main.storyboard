@@ -4,32 +4,72 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--StartViewController-->
         <scene sceneID="PE0-YU-8lQ">
             <objects>
-                <viewController title="StartViewController" id="naB-fN-oza" sceneMemberID="viewController">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mZE-pl-tWn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewController title="StartViewController" id="naB-fN-oza" customClass="StartViewController" customModule="ParallelPark" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pvV-h6-fF2"/>
                         <viewControllerLayoutGuide type="bottom" id="S6o-jX-S0S"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="4hY-Lp-p4z">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Parallel Parking Helper" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="auF-0l-HEX">
+                                <rect key="frame" x="0.0" y="49" width="375" height="101"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="1De-pM-DAK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Instructions: This app helps you parallel park! Click start to start searching for a parking space" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eiE-Bt-eoN">
+                                <rect key="frame" x="0.0" y="422" width="375" height="130"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w3K-vH-Wu4">
+                                <rect key="frame" x="113" y="292" width="148" height="88"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="88" id="l6F-Td-QhJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="37"/>
+                                <state key="normal" title="Start"/>
+                                <connections>
+                                    <action selector="startWithSender:" destination="naB-fN-oza" eventType="touchUpInside" id="28A-BX-m7y"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.84793326084346643" green="1" blue="0.85420683021220367" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="eiE-Bt-eoN" secondAttribute="trailing" constant="46" id="5zv-iE-i6D"/>
+                            <constraint firstItem="auF-0l-HEX" firstAttribute="top" secondItem="pvV-h6-fF2" secondAttribute="bottom" constant="49" id="62S-AC-t5T"/>
+                            <constraint firstItem="w3K-vH-Wu4" firstAttribute="top" secondItem="4hY-Lp-p4z" secondAttribute="top" constant="289" id="Awp-Uf-hyl"/>
+                            <constraint firstItem="eiE-Bt-eoN" firstAttribute="leading" secondItem="auF-0l-HEX" secondAttribute="leading" id="BgU-lb-L89"/>
+                            <constraint firstItem="eiE-Bt-eoN" firstAttribute="leading" secondItem="4hY-Lp-p4z" secondAttribute="leadingMargin" constant="30" id="Q1Q-JX-eDX"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="auF-0l-HEX" secondAttribute="trailing" constant="26" id="ZXd-27-e9V"/>
+                            <constraint firstItem="S6o-jX-S0S" firstAttribute="top" secondItem="eiE-Bt-eoN" secondAttribute="bottom" constant="95" id="aje-RO-FUn"/>
+                            <constraint firstItem="w3K-vH-Wu4" firstAttribute="centerX" secondItem="4hY-Lp-p4z" secondAttribute="centerX" id="ddO-V3-XwW"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="w3K-vH-Wu4" secondAttribute="trailing" constant="93" id="fry-Ye-iOu"/>
+                            <constraint firstItem="eiE-Bt-eoN" firstAttribute="top" secondItem="w3K-vH-Wu4" secondAttribute="bottom" constant="45" id="vTQ-nE-q4C"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="NOA-la-zOy"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mZE-pl-tWn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="223" y="20"/>
+            <point key="canvasLocation" x="221.59999999999999" y="19.340329835082461"/>
         </scene>
         <!--InProgressViewController-->
         <scene sceneID="x60-SZ-Msz">
             <objects>
-                <viewController title="InProgressViewController" id="YIm-bl-mVd" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InProgressViewController" title="InProgressViewController" id="YIm-bl-mVd" customClass="InProgressViewController" customModule="ParallelPark" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1lv-vu-cNG"/>
                         <viewControllerLayoutGuide type="bottom" id="dlm-jV-vQB"/>
@@ -37,17 +77,34 @@
                     <view key="view" contentMode="scaleToFill" id="Adj-Lj-4sJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Looking for a spot ..." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="46E-si-EJN">
+                                <rect key="frame" x="0.0" y="239" width="375" height="147"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Parallel Parking Helper" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pBY-5S-Avd">
+                                <rect key="frame" x="0.0" y="28" width="375" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.97175713322978807" blue="0.8227277870164682" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </view>
+                    <navigationItem key="navigationItem" id="0wa-cg-P6B"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fs8-be-Dj3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="338" y="-678"/>
+            <point key="canvasLocation" x="336.80000000000001" y="-678.71064467766121"/>
         </scene>
         <!--FinishViewController-->
         <scene sceneID="isa-SY-HGq">
             <objects>
-                <viewController title="FinishViewController" id="JkG-hc-jo6" sceneMemberID="viewController">
+                <viewController title="FinishViewController" id="JkG-hc-jo6" customClass="FinishViewController" customModule="ParallelPark" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vwA-SG-8h8"/>
                         <viewControllerLayoutGuide type="bottom" id="mbr-aG-V19"/>
@@ -55,17 +112,44 @@
                     <view key="view" contentMode="scaleToFill" id="FGn-cY-75n">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Parallel Parking Helper" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LrQ-Sw-epv">
+                                <rect key="frame" x="0.0" y="82" width="375" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JU4-FK-X4w">
+                                <rect key="frame" x="54" y="194" width="289" height="130"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <string key="text">Finished! 
+Great job, you’ve successfully parked!
+
+Distance in front: ___ feet
+Distance behind: ___ feet
+</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Idd-wP-0e4">
+                                <rect key="frame" x="113" y="528" width="148" height="88"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="37"/>
+                                <state key="normal" title="Finish"/>
+                                <connections>
+                                    <action selector="buttonPressed:" destination="JkG-hc-jo6" eventType="touchUpInside" id="khX-tC-hWP"/>
+                                    <segue destination="naB-fN-oza" kind="show" id="oBt-gn-CYG"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.82003907324453773" green="1" blue="0.75675496098537798" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qgT-cT-sRm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-33" y="-1376"/>
+            <point key="canvasLocation" x="-34.399999999999999" y="-1376.7616191904049"/>
         </scene>
     </scenes>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>

@@ -16,9 +16,9 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
     var sideSensor: Sensor? = nil;
     var backSensor: Sensor? = nil;
 
-    convenience init(sensor: Sensor?) {
-       //TODO
-    }
+//    convenience init(sensor: Sensor?) {
+//       //TODO
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,16 +36,16 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         // TODO: determine what sensors are which ones
         if sensor?.name == "front" {
             frontSensor = sensor!
-            sensors.append(frontSensor)
+            sensors.append(frontSensor!)
         } else if sensor?.name == "mirror" {
             mirrorSensor = sensor!
-            sensors.append(mirrorSensor)
+            sensors.append(mirrorSensor!)
         } else if sensor?.name == "side" {
             sideSensor = sensor!
-            sensors.append(sideSensor)
+            sensors.append(sideSensor!)
         } else if sensor?.name == "back" {
             backSensor = sensor!
-            sensors.append(backSensor)
+            sensors.append(backSensor!)
         }
 //        self.tableView.reloadData()
     }
@@ -53,16 +53,16 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
     func sensorModel(_ model: SensorModel, didReceiveReadings readings: [Reading], forSensor sensor: Sensor?) {
         if sensor?.name == "front" {
             frontSensor = sensor!
-            sensors.append(frontSensor)
+            sensors.append(frontSensor!)
         } else if sensor?.name == "mirror" {
             mirrorSensor = sensor!
-            sensors.append(mirrorSensor)
+            sensors.append(mirrorSensor!)
         } else if sensor?.name == "side" {
             sideSensor = sensor!
-            sensors.append(sideSensor)
+            sensors.append(sideSensor!)
         } else if sensor?.name == "back" {
             backSensor = sensor!
-            sensors.append(backSensor)
+            sensors.append(backSensor!)
         }
 //        self.tableView.reloadData()
     }
