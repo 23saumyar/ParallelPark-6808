@@ -14,7 +14,7 @@ float distance;           //distance in mms
 void setup() {
   // initialize serial and wait for serial monitor to be opened:
   Serial.begin(9600);
-  while (!Serial);
+  // while (!Serial);
  
   // set LED pin to output mode:
   pinMode(TRIGGER_PIN, OUTPUT);
@@ -49,37 +49,26 @@ void setup() {
 
 void loop() {
   // listen for BLE peripherals to connect:
-  BLEDevice central = BLE.central();
-  
-  // if a central is connected:
-  if (central) {
-    Serial.print("Connected to central: ");
-    // print the central's MAC address:
-    Serial.println(central.address());
- 
-    // while the central is still connected to peripheral:
-    while (central.connected()) {
-      digitalWrite(TRIGGER_PIN, HIGH);    //send trigger pulse
-      delayMicroseconds(10);
-      digitalWrite(TRIGGER_PIN, LOW);
-    
-      echoTime = pulseIn(ECHO_PIN, HIGH); //capture the echo signal and determine duration of pulse when HIGH
-    
-      distance = (echoTime*0.034*10)/2;    //obtain distance (in mm), from time
+  // BLEDevice central = BLE.central();
 
-      Serial.print("Distance: ");
-      Serial.print(distance);
-      Serial.println(" mm"); 
-      
-      String dist = String(distance, 2);
-      
-      switchCharacteristic.writeValue("D"+dist+"D");
-      
-      delay(500);      
-    }
- 
-    // when the central disconnects, print it out:
-    Serial.print("Disconnected from central: ");
-    Serial.println(central.address());
-  }
+  BLE.poll();  
+
+  digitalWrite(TRIGGER_PIN, HIGH);    //send trigger pulse
+  delayMicroseconds(10);
+  digitalWrite(TRIGGER_PIN, LOW);
+
+  echoTime = pulseIn(ECHO_PIN, HIGH); //capture the echo signal and determine duration of pulse when HIGH
+
+  distance = (echoTime*0.034*10)/2;    //obtain distance (in mm), from time
+
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println(" mm"); 
+  
+  String dist = String(distance, 2);
+  
+  switchCharacteristic.writeValue("DD"+dist+"D");
+  
+  delay(500);      
+
 }
