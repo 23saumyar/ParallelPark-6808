@@ -67,7 +67,7 @@ void loop() {
   
   String dist = String(distance, 2);
   
-  switchCharacteristic.writeValue("DD"+dist+"D");
+  switchCharacteristic.writeValue("MD"+dist+"D");
   
   delay(500);      
 
