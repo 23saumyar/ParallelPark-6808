@@ -51,9 +51,9 @@ protocol BLEDelegate {
 
 private extension CBUUID {
     enum RedBearUUIDfront: String {
-        case servicef = "713D0000-503E-4C75-BA94-3148F18D941E"
-        case charTxf = "713D0002-503E-4C75-BA94-3148F18D941E"
-        case charRxf = "713D0003-503E-4C75-BA94-3148F18D941E"
+        case servicef = "713D0000-503E-4C75-BA94-3148F18D941A"
+        case charTxf = "713D0002-503E-4C75-BA94-3148F18D941A"
+        case charRxf = "713D0003-503E-4C75-BA94-3148F18D941A"
     }
     
     convenience init(redBearType: RedBearUUIDfront) {
@@ -62,9 +62,9 @@ private extension CBUUID {
     
     
     enum RedBearUUIDmirror: String {
-        case servicem = "713D0000-503E-4C75-BA94-3148F18D941E"
-        case charTxm = "713D0002-503E-4C75-BA94-3148F18D941E"
-        case charRxm = "713D0003-503E-4C75-BA94-3148F18D941E"
+        case servicem = "713D0000-503E-4C75-BA94-3148F18D941B"
+        case charTxm = "713D0002-503E-4C75-BA94-3148F18D941B"
+        case charRxm = "713D0003-503E-4C75-BA94-3148F18D941B"
     }
     
     convenience init(redBearType: RedBearUUIDmirror) {
@@ -73,9 +73,9 @@ private extension CBUUID {
     
     
     enum RedBearUUIDside: String {
-        case services = "713D0000-503E-4C75-BA94-3148F18D941E"
-        case charTxs = "713D0002-503E-4C75-BA94-3148F18D941E"
-        case charRxs = "713D0003-503E-4C75-BA94-3148F18D941E"
+        case services = "713D0000-503E-4C75-BA94-3148F18D941C"
+        case charTxs = "713D0002-503E-4C75-BA94-3148F18D941C"
+        case charRxs = "713D0003-503E-4C75-BA94-3148F18D941C"
     }
     
     convenience init(redBearType: RedBearUUIDside) {
@@ -84,9 +84,9 @@ private extension CBUUID {
     
     
     enum RedBearUUIDback: String {
-        case serviceb = "713D0000-503E-4C75-BA94-3148F18D941E"
-        case charTxb = "713D0002-503E-4C75-BA94-3148F18D941E"
-        case charRxb = "713D0003-503E-4C75-BA94-3148F18D941E"
+        case serviceb = "713D0000-503E-4C75-BA94-3148F18D941D"
+        case charTxb = "713D0002-503E-4C75-BA94-3148F18D941D"
+        case charRxb = "713D0003-503E-4C75-BA94-3148F18D941D"
     }
     
     convenience init(redBearType: RedBearUUIDback) {
@@ -99,21 +99,21 @@ class BLE: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     let RBL_CHAR_TX_UUID = "713D0002-503E-4C75-BA94-3148F18D941E"
     let RBL_CHAR_RX_UUID = "713D0003-503E-4C75-BA94-3148F18D941E"
     
-    let RBL_SERVICE_UUIDfront = "713D0000-503E-4C75-BA94-3148F18D941E"
-    let RBL_CHAR_TX_UUIDfront = "713D0002-503E-4C75-BA94-3148F18D941E"
-    let RBL_CHAR_RX_UUIDfront = "713D0003-503E-4C75-BA94-3148F18D941E"
-    
-    let RBL_SERVICE_UUIDmirror = "713D0000-503E-4C75-BA94-3148F18D941F"
-    let RBL_CHAR_TX_UUIDmirror = "713D0002-503E-4C75-BA94-3148F18D941F"
-    let RBL_CHAR_RX_UUIDmirror = "713D0003-503E-4C75-BA94-3148F18D941F"
-    
-    let RBL_SERVICE_UUIDside = "713D0000-503E-4C75-BA94-3148F18D941G"
-    let RBL_CHAR_TX_UUIDside = "713D0002-503E-4C75-BA94-3148F18D941G"
-    let RBL_CHAR_RX_UUIDside = "713D0003-503E-4C75-BA94-3148F18D941G"
-    
-    let RBL_SERVICE_UUIDback = "713D0000-503E-4C75-BA94-3148F18D941H"
-    let RBL_CHAR_TX_UUIDback = "713D0002-503E-4C75-BA94-3148F18D941H"
-    let RBL_CHAR_RX_UUIDback = "713D0003-503E-4C75-BA94-3148F18D941H"
+//    let RBL_SERVICE_UUIDfront = "713D0000-503E-4C75-BA94-3148F18D941E"
+//    let RBL_CHAR_TX_UUIDfront = "713D0002-503E-4C75-BA94-3148F18D941E"
+//    let RBL_CHAR_RX_UUIDfront = "713D0003-503E-4C75-BA94-3148F18D941E"
+//
+//    let RBL_SERVICE_UUIDmirror = "713D0000-503E-4C75-BA94-3148F18D941F"
+//    let RBL_CHAR_TX_UUIDmirror = "713D0002-503E-4C75-BA94-3148F18D941F"
+//    let RBL_CHAR_RX_UUIDmirror = "713D0003-503E-4C75-BA94-3148F18D941F"
+//
+//    let RBL_SERVICE_UUIDside = "713D0000-503E-4C75-BA94-3148F18D941G"
+//    let RBL_CHAR_TX_UUIDside = "713D0002-503E-4C75-BA94-3148F18D941G"
+//    let RBL_CHAR_RX_UUIDside = "713D0003-503E-4C75-BA94-3148F18D941G"
+//
+//    let RBL_SERVICE_UUIDback = "713D0000-503E-4C75-BA94-3148F18D941H"
+//    let RBL_CHAR_TX_UUIDback = "713D0002-503E-4C75-BA94-3148F18D941H"
+//    let RBL_CHAR_RX_UUIDback = "713D0003-503E-4C75-BA94-3148F18D941H"
     
     var delegate: BLEDelegate?
     
