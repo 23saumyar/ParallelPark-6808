@@ -1,7 +1,7 @@
 #include "ArduinoBLE.h"
 
 BLEService ledService("713D0000-503E-4C75-BA94-3148F18D941E"); // BLE LED Service
-
+ 
 // BLE LED Switch Characteristic - custom 128-bit UUID, read and writable by central
 BLEStringCharacteristic switchCharacteristic("713D0002-503E-4C75-BA94-3148F18D941E", BLERead | BLENotify, 20);
 
@@ -14,7 +14,7 @@ float distance;           //distance in mms
 void setup() {
   // initialize serial and wait for serial monitor to be opened:
   Serial.begin(9600);
-  while (!Serial);
+  // while (!Serial);
  
   // set LED pin to output mode:
   pinMode(TRIGGER_PIN, OUTPUT);
@@ -28,8 +28,8 @@ void setup() {
   }
  
   // set advertised local name and service UUID:
-  BLE.setLocalName("front");
-  BLE.setDeviceName("front");
+  BLE.setLocalName("back");
+  BLE.setDeviceName("back");
   BLE.setAdvertisedService(ledService);
  
   // add the characteristic to the service
@@ -45,47 +45,30 @@ void setup() {
   BLE.advertise();
  
   Serial.println("BLE LED Peripheral");
-//  Serial.println(BLE.localName());
 }
 
 void loop() {
-  // print BLE Peripheral Name:
-//  Serial.println("Trying to print BLE Name:");
-//  if 
-//  Serial.println(BLE.localName());
-  
   // listen for BLE peripherals to connect:
-  BLEDevice central = BLE.central();
-  
-  // if a central is connected:
-  if (central) {
-    Serial.print("Connected to central: ");
-    // print the central's MAC address:
-    Serial.println(central.address());
- 
-    // while the central is still connected to peripheral:
-    while (central.connected()) {
-      digitalWrite(TRIGGER_PIN, HIGH);    //send trigger pulse
-      delayMicroseconds(10);
-      digitalWrite(TRIGGER_PIN, LOW);
-    
-      echoTime = pulseIn(ECHO_PIN, HIGH); //capture the echo signal and determine duration of pulse when HIGH
-    
-      distance = (echoTime*0.034*10)/2;    //obtain distance (in mm), from time
+  // BLEDevice central = BLE.central();
 
-      Serial.print("Distance: ");
-      Serial.print(distance);
-      Serial.println(" mm"); 
-      
-      String dist = String(distance, 2);
-      
-      switchCharacteristic.writeValue("D"+dist+"D");
-      
-      delay(500);      
-    }
- 
-    // when the central disconnects, print it out:
-    Serial.print("Disconnected from central: ");
-    Serial.println(central.address());
-  }
+  BLE.poll();  
+
+  digitalWrite(TRIGGER_PIN, HIGH);    //send trigger pulse
+  delayMicroseconds(10);
+  digitalWrite(TRIGGER_PIN, LOW);
+
+  echoTime = pulseIn(ECHO_PIN, HIGH); //capture the echo signal and determine duration of pulse when HIGH
+
+  distance = (echoTime*0.034*10)/2;    //obtain distance (in mm), from time
+
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println(" mm"); 
+  
+  String dist = String(distance, 2);
+  
+  switchCharacteristic.writeValue("DD"+dist+"D");
+  
+  delay(500);      
+
 }
