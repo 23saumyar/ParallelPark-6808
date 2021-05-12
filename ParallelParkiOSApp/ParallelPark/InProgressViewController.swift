@@ -35,21 +35,21 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
     
     func sensorModel(_ model: SensorModel, didChangeActiveSensor sensor: Sensor?) {
         // TODO: determine what sensors are which ones
-        if sensor?.name == "front" {
+        if sensor!.description == "front" {
             frontSensor = sensor!
             sensors.append(frontSensor!)
-        } else if sensor?.name == "mirror" {
+        } else if sensor!.description == "mirror" {
             mirrorSensor = sensor!
             sensors.append(mirrorSensor!)
-        } else if sensor?.name == "side" {
+        } else if sensor!.description == "side" {
             sideSensor = sensor!
             sensors.append(sideSensor!)
-        } else if sensor?.name == "back" {
+        } else if sensor!.description == "back" {
             backSensor = sensor!
             sensors.append(backSensor!)
         }
         NSLog("change active sensor")
-        NSLog(sensor!.name)
+        NSLog(sensor!.description)
 //        self.tableView.reloadData()
     }
     
@@ -68,7 +68,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
             sensors.append(backSensor!)
         }
         NSLog("recieve readings")
-        NSLog(sensor!.name)
+        NSLog(sensor!.description)
         NSLog(readings.debugDescription)
 
 //        self.tableView.reloadData()

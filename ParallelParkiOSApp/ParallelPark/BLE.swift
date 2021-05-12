@@ -50,22 +50,70 @@ protocol BLEDelegate {
 }
 
 private extension CBUUID {
-    enum RedBearUUID: String {
-        case service = "713D0000-503E-4C75-BA94-3148F18D941E"
-        case charTx = "713D0002-503E-4C75-BA94-3148F18D941E"
-        case charRx = "713D0003-503E-4C75-BA94-3148F18D941E"
+    enum RedBearUUIDfront: String {
+        case servicef = "713D0000-503E-4C75-BA94-3148F18D941E"
+        case charTxf = "713D0002-503E-4C75-BA94-3148F18D941E"
+        case charRxf = "713D0003-503E-4C75-BA94-3148F18D941E"
     }
     
-    convenience init(redBearType: RedBearUUID) {
+    convenience init(redBearType: RedBearUUIDfront) {
+        self.init(string:redBearType.rawValue)
+    }
+    
+    
+    enum RedBearUUIDmirror: String {
+        case servicem = "713D0000-503E-4C75-BA94-3148F18D941E"
+        case charTxm = "713D0002-503E-4C75-BA94-3148F18D941E"
+        case charRxm = "713D0003-503E-4C75-BA94-3148F18D941E"
+    }
+    
+    convenience init(redBearType: RedBearUUIDmirror) {
+        self.init(string:redBearType.rawValue)
+    }
+    
+    
+    enum RedBearUUIDside: String {
+        case services = "713D0000-503E-4C75-BA94-3148F18D941E"
+        case charTxs = "713D0002-503E-4C75-BA94-3148F18D941E"
+        case charRxs = "713D0003-503E-4C75-BA94-3148F18D941E"
+    }
+    
+    convenience init(redBearType: RedBearUUIDside) {
+        self.init(string:redBearType.rawValue)
+    }
+    
+    
+    enum RedBearUUIDback: String {
+        case serviceb = "713D0000-503E-4C75-BA94-3148F18D941E"
+        case charTxb = "713D0002-503E-4C75-BA94-3148F18D941E"
+        case charRxb = "713D0003-503E-4C75-BA94-3148F18D941E"
+    }
+    
+    convenience init(redBearType: RedBearUUIDback) {
         self.init(string:redBearType.rawValue)
     }
 }
 
 class BLE: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
-    let RBL_SERVICE_UUID = "713D0000-503E-4C75-BA94-3148F18D941E"
     let RBL_CHAR_TX_UUID = "713D0002-503E-4C75-BA94-3148F18D941E"
     let RBL_CHAR_RX_UUID = "713D0003-503E-4C75-BA94-3148F18D941E"
+    
+    let RBL_SERVICE_UUIDfront = "713D0000-503E-4C75-BA94-3148F18D941E"
+    let RBL_CHAR_TX_UUIDfront = "713D0002-503E-4C75-BA94-3148F18D941E"
+    let RBL_CHAR_RX_UUIDfront = "713D0003-503E-4C75-BA94-3148F18D941E"
+    
+    let RBL_SERVICE_UUIDmirror = "713D0000-503E-4C75-BA94-3148F18D941F"
+    let RBL_CHAR_TX_UUIDmirror = "713D0002-503E-4C75-BA94-3148F18D941F"
+    let RBL_CHAR_RX_UUIDmirror = "713D0003-503E-4C75-BA94-3148F18D941F"
+    
+    let RBL_SERVICE_UUIDside = "713D0000-503E-4C75-BA94-3148F18D941G"
+    let RBL_CHAR_TX_UUIDside = "713D0002-503E-4C75-BA94-3148F18D941G"
+    let RBL_CHAR_RX_UUIDside = "713D0003-503E-4C75-BA94-3148F18D941G"
+    
+    let RBL_SERVICE_UUIDback = "713D0000-503E-4C75-BA94-3148F18D941H"
+    let RBL_CHAR_TX_UUIDback = "713D0002-503E-4C75-BA94-3148F18D941H"
+    let RBL_CHAR_RX_UUIDback = "713D0003-503E-4C75-BA94-3148F18D941H"
     
     var delegate: BLEDelegate?
     
@@ -104,9 +152,17 @@ class BLE: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         
         Timer.scheduledTimer(timeInterval: timeout, target: self, selector: #selector(BLE.scanTimeout), userInfo: nil, repeats: false)
         
-        let services:[CBUUID] = [CBUUID(redBearType: .service)]
+        let services:[CBUUID] = [CBUUID(redBearType: .servicef), CBUUID(redBearType: .servicem), CBUUID(redBearType: .services), CBUUID(redBearType: .serviceb)]
         centralManager.scanForPeripherals(withServices: services, options: nil)
-        
+//
+//        let servicesmirror:[CBUUID] = [CBUUID(redBearType: .servicem)]
+//        centralManager.scanForPeripherals(withServices: servicesmirror, options: nil)
+//
+//        let servicesside:[CBUUID] = [CBUUID(redBearType: .services)]
+//        centralManager.scanForPeripherals(withServices: servicesside, options: nil)
+//
+//        let servicesback:[CBUUID] = [CBUUID(redBearType: .serviceb)]
+//        centralManager.scanForPeripherals(withServices: servicesback, options: nil)
         return true
     }
     
@@ -202,7 +258,7 @@ class BLE: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         activePeripheral = peripheral
         
         activePeripheral?.delegate = self
-        activePeripheral?.discoverServices([CBUUID(redBearType: .service)])
+        activePeripheral?.discoverServices([CBUUID(redBearType: .servicef), CBUUID(redBearType: .servicem), CBUUID(redBearType: .services), CBUUID(redBearType: .serviceb)])
         
         delegate?.ble(didConnectToPeripheral: peripheral)
     }
@@ -236,7 +292,7 @@ class BLE: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         
         
         for service in peripheral.services! {
-            let theCharacteristics = [CBUUID(redBearType: .charRx), CBUUID(redBearType: .charTx)]
+            let theCharacteristics = [CBUUID(redBearType: .charRxf), CBUUID(redBearType: .charTxf), CBUUID(redBearType: .charRxm), CBUUID(redBearType: .charTxm), CBUUID(redBearType: .charRxs), CBUUID(redBearType: .charTxs), CBUUID(redBearType: .charRxb), CBUUID(redBearType: .charTxb)]
             
             peripheral.discoverCharacteristics(theCharacteristics, for: service)
         }
