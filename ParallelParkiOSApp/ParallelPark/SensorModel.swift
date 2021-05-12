@@ -147,6 +147,7 @@ class SensorModel : BLEDelegate{
 
         // get a substring that excludes the first and last characters
         NSLog(str.debugDescription)
+        
         let substring = str[str.index(after: str.startIndex)..<str.index(before: str.endIndex)]
         // convert a Substring to a Double
         let value = Double(substring[substring.index(after: substring.startIndex)...])
