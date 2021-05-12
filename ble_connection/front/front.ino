@@ -1,6 +1,6 @@
 #include "ArduinoBLE.h"
 
-BLEService ledService("713D0000-503E-4C75-BA94-3148F18D941E"); // BLE LED Service
+BLEService ledService("713D0000-503E-4C75-BA94-3148F18D941A"); // BLE LED Service
  
 // BLE LED Switch Characteristic - custom 128-bit UUID, read and writable by central
 BLEStringCharacteristic switchCharacteristic("713D0002-503E-4C75-BA94-3148F18D941E", BLERead | BLENotify, 20);
@@ -67,7 +67,7 @@ void loop() {
   
   String dist = String(distance, 2);
   
-  switchCharacteristic.writeValue("DD"+dist+"D");
+  switchCharacteristic.writeValue("FD"+dist+"D");
   
   delay(500);      
 
