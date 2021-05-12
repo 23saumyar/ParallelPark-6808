@@ -84,6 +84,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         var angleThreshold: Float = 5 // mm
         var centeringThreshold: Float = 100 // mm
         var threeFeetInMillimeter: Float = 3*305
+        var oneFootInMillimeter: Float = 1*305
         
         var originalIMU = 0
         
@@ -147,9 +148,9 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
             if abs(front-back) < centeringThreshold {
                 state = 5
             } else if front > back {
-                command user to slowly back up
+//                command user to slowly back up
             } else if back > front {
-                command user to slowly inch up
+//                command user to slowly inch up
             }
         }
         
@@ -172,9 +173,9 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
     }
     
     // calculate and return angle of car compared to original measurement based on latest IMU readings
-    func caclulateAngle() {
+    func calculateAngle() -> Float {
         // TODO
-        return
+        return 0
     }
     
     
