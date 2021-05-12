@@ -3,7 +3,7 @@
 BLEService ledService("713D0000-503E-4C75-BA94-3148F18D941A"); // BLE LED Service
  
 // BLE LED Switch Characteristic - custom 128-bit UUID, read and writable by central
-BLEStringCharacteristic switchCharacteristic("713D0002-503E-4C75-BA94-3148F18D941E", BLERead | BLENotify, 20);
+BLEStringCharacteristic switchCharacteristic("713D0002-503E-4C75-BA94-3148F18D941A", BLERead | BLENotify, 20);
 
 #define TRIGGER_PIN   7
 #define ECHO_PIN      8
