@@ -74,117 +74,97 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
 //        self.tableView.reloadData()
     }
     
-/*
+
 // working parking pseudo code:
     
     func park() {
         
-        var state: Int = 0
-        var threshold: Int = 0
-        var threeFeetInMillimeter = 3*305
+        var state: Int = 0 // waiting for starting position
+        var threshold: Float = 50 // mm
+        var angleThreshold: Float = 5 // mm
+        var centeringThreshold: Float = 100 // mm
+        var threeFeetInMillimeter: Float = 3*305
+        
+        var originalIMU = 0
+        
+        var front: Float = 0
+        var mirror: Float = 0
+        var side: Float = 0
+        var back: Float = 0
+        
         
         // if user clicks start:
             // state = 1
         
-        while state == 1 {
+        while state == 1 { // preparing starting position
+            
             // update side and mirror values
             
-            // if inRange(mirror, threeFeetInMillimeter, threshold) && inRange(side, threeFeetInMillimeter, threshold {
-                // store IMU measurements
-                // command user to begin backing up until the back measurement goes over 3 ft
+            if inRange(value: mirror, target: threeFeetInMillimeter, threshold: threshold) && inRange(value: side, target: threeFeetInMillimeter, threshold: threshold) {
+//                 store IMU measurements
+//                 command user to begin backing up until the back measurement goes over 3 ft
                 state = 2
-        // } else if inRange(mirror, threeFeetInMillimeter, threshold) && (side > (threeFeetInMillimeter+threshold)) {
-                // command user to move up until both sensors have measurements in range
-        // } else if inRange(side, threeFeetInMillimeter, threshold) && (mirror > (threeFeetInMillimeter+threshold)) {
-                // command user to back up until both sensors have measurements in range
-
+            } else if inRange(value: mirror, target: threeFeetInMillimeter, threshold: threshold) && (side > (threeFeetInMillimeter+threshold)) {
+//                 command user to move up until both sensors have measurements in range
+            } else if inRange(value: side, target: threeFeetInMillimeter, threshold: threshold) && (mirror > (threeFeetInMillimeter+threshold)) {
+//                 command user to back up until both sensors have measurements in range
+            } else {
+//             command user to pull up about 3 feet from the car in front of the desired parking spot and try again
+            }
         }
         
+        while state == 2 {
+            if inRange(value: mirror, target: threeFeetInMillimeter, threshold: threshold) && inRange(value: side, target: threeFeetInMillimeter, threshold: threshold) {
+//                command user to begin backing up until the back measurement goes over 3 ft
+                state = 3
+            } else if inRange(value: mirror, target: threeFeetInMillimeter, threshold: threshold) && (side > threeFeetInMillimeter+threshold) {
+//                command user to turn the wheel one full rotation to the right, making sure no cars are coming, and then start moving backwards slowly
+            } else {
+//                print that the position doesn't seem right - perhaps try again
+                state = 1
+            }
+        }
+        
+        while state == 3 {
+            
+            var angle: Float = calculateAngle()
+            
+            if inRange(value: angle, target: 45, threshold: angleThreshold) {
+                if inRange(value: mirror, target: oneFootInMillimeter, threshold: threshold) || (mirror > (threeFeetInMillimeter+threshold)) {
+//                    command user to stop, mirror should be at vehicle's tail light
+//                    command user to rotate wheel fully to the left and continue backing up until IMU measurements match OG measurements indicating straightened out
+//                    command user to straighten wheel
+                    state = 4
+                }
+            } else if angle > (45+angleThreshold) {
+//                command user to turn wheel a little in (?) direction
+            } else if angle < (45+angleThreshold) {
+//                command user to turn wheel a little in (?) direction
+            }
+        }
+        
+        while state == 4 {
+            if abs(front-back) < centeringThreshold {
+                state = 5
+            } else if front > back {
+                command user to slowly back up
+            } else if back > front {
+                command user to slowly inch up
+            }
+        }
+        
+        if state == 5 {
+            // display final screen
+            state = 0
+        }
     }
     
-    
-*/
-    
-/*
-     
-OG Parking Pseudo Code
-     
-    # if user clicks start, state = 1
-     
-    // state 1 - preparing starting position
-
-    while state == 1:
-        # if mirror in range (3ft+threshold) and side in range (3ft+threshold):
-            # store IMU measurements to determine straightness later
-            # command user to begin backing up until the back measurement goes over 3 ft
-            # switch state
-
-        # if mirror in range and side > (3ft+threshold):
-            # command user to move up until both sensors have measurements in range
-
-        # if mirror > (3ft+threshold) and side in range
-            # command user to back up until both sensors have measurements in range
-        
-        # else:
-            # command user to pull up about 3 feet from the car in front of the desired parking spot and try again
-
-
-    // state 2 - backing up until ready to turn wheel
-
-    while state == 2:
-        # if mirror in range (3ft+threshold) and side in range (3ft+threshold):
-            # command user to begin backing up until the back measurement goes over 3 ft
-            # switch to state 3
-
-        # else if mirror in range and side > range:
-            # command user to turn the wheel one full rotation to the right, making sure no cars are coming, and then start moving backwards slowly
-
-        # else:
-            # print your position doesn't seem right, perhaps try again
-            # switch to state 1
-
-
-    // state 3 - backing up diagonally into spot
-
-    while state == 3:
-        # check angle
-        # if angle ~ 45 degrees
-            # mirror < (1ft+threshold) or distance starts increasing:
-                # command user to stop, mirror should be at vehicle's tail light
-                # command user to rotate wheel fully to the left and continue backing up until IMU measurements match OG measurements indicating straightened out
-                # command user to straighten wheel
-                # switch to state 4
-        # if angle > 45 degrees:
-            # command user to turn wheel a little in (?) direction
-        # if angle < 45 degrees:
-            # command user to turn wheel a little in (?) direction
-
-
-    // state 4 - straighten wheel and center
-
-    while state == 4:
-        # if abs(front-back) < threshold (?):
-            # print congratulations!
-            # switch to state 5
-        # else if front > back:
-            # slowly back up
-        # else if back > front:
-            # slowly inch up
-
-
-    // state 5 - completed
-     
-     if state == 5:
-        # display completed screen
-        state = 0
-
-*/
     
 // parking helper functions
     
     // determine whether a number is within the distance+threshold of another number
-    func inRange(number: Int, target: Int, threshold: Int) -> Bool {
-        if number > (target-threshold) && number < (target+threshold) {
+    func inRange(value: Float, target: Float, threshold: Float) -> Bool {
+        if value > (target-threshold) && value < (target+threshold) {
             return true
         } else {
             return false
@@ -193,6 +173,7 @@ OG Parking Pseudo Code
     
     // calculate and return angle of car compared to original measurement based on latest IMU readings
     func caclulateAngle() {
+        // TODO
         return
     }
     
