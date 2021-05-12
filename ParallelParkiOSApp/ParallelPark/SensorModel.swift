@@ -98,7 +98,7 @@ func ==(lhs: Sensor, rhs: Sensor) -> Bool {
 
 class SensorModel : BLEDelegate{
     
-    static let kBLE_SCAN_TIMEOUT = 10000000.0
+    static let kBLE_SCAN_TIMEOUT = 10000000000.0
     
     static let shared = SensorModel()
 
@@ -125,7 +125,7 @@ class SensorModel : BLEDelegate{
     }
     
     func ble(didConnectToPeripheral peripheral: CBPeripheral) {
-        activeSensor = Sensor(name: peripheral.name!)
+        activeSensor = Sensor(name: peripheral.description)
         activePeripheral = peripheral
         delegate?.sensorModel(self, didChangeActiveSensor: activeSensor)
         
@@ -146,10 +146,10 @@ class SensorModel : BLEDelegate{
         let str = String(data: data!, encoding: String.Encoding.ascii)!
 
         // get a substring that excludes the first and last characters
+        NSLog(str.debugDescription)
         let substring = str[str.index(after: str.startIndex)..<str.index(before: str.endIndex)]
-
         // convert a Substring to a Double
-        let value = Double(substring.trimmingCharacters(in: .whitespacesAndNewlines))!
+        let value = Double(substring[substring.index(after: substring.startIndex)...])
         var r = ReadingType.Distance
         if (str.hasPrefix("IMU_g")){ //TODO: change this
             r = ReadingType.IMU_g
@@ -159,7 +159,7 @@ class SensorModel : BLEDelegate{
             r = ReadingType.IMU_m
         }
         
-        let reading = Reading(type: r, value: value, sensorId: peripheral.name)
+        let reading = Reading(type: r, value: value!, sensorId: peripheral.name)
         activeSensor?.readings.append(reading)
         delegate?.sensorModel(self, didReceiveReadings: [reading], forSensor: activeSensor)
     }

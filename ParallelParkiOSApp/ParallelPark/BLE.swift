@@ -52,8 +52,8 @@ protocol BLEDelegate {
 private extension CBUUID {
     enum RedBearUUIDfront: String {
         case servicef = "713D0000-503E-4C75-BA94-3148F18D941A"
-        case charTxf = "713D0002-503E-4C75-BA94-3148F18D941A"
-        case charRxf = "713D0003-503E-4C75-BA94-3148F18D941A"
+        case charTxf = "713D0002-503E-4C75-BA94-3148F18D941E"
+        case charRxf = "713D0003-503E-4C75-BA94-3148F18D941E"
     }
     
     convenience init(redBearType: RedBearUUIDfront) {
@@ -63,8 +63,8 @@ private extension CBUUID {
     
     enum RedBearUUIDmirror: String {
         case servicem = "713D0000-503E-4C75-BA94-3148F18D941B"
-        case charTxm = "713D0002-503E-4C75-BA94-3148F18D941B"
-        case charRxm = "713D0003-503E-4C75-BA94-3148F18D941B"
+        case charTxm = "713D0002-503E-4C75-BA94-3148F18D941E"
+        case charRxm = "713D0003-503E-4C75-BA94-3148F18D941E"
     }
     
     convenience init(redBearType: RedBearUUIDmirror) {
@@ -74,8 +74,8 @@ private extension CBUUID {
     
     enum RedBearUUIDside: String {
         case services = "713D0000-503E-4C75-BA94-3148F18D941C"
-        case charTxs = "713D0002-503E-4C75-BA94-3148F18D941C"
-        case charRxs = "713D0003-503E-4C75-BA94-3148F18D941C"
+        case charTxs = "713D0002-503E-4C75-BA94-3148F18D941E"
+        case charRxs = "713D0003-503E-4C75-BA94-3148F18D941E"
     }
     
     convenience init(redBearType: RedBearUUIDside) {
@@ -85,8 +85,8 @@ private extension CBUUID {
     
     enum RedBearUUIDback: String {
         case serviceb = "713D0000-503E-4C75-BA94-3148F18D941D"
-        case charTxb = "713D0002-503E-4C75-BA94-3148F18D941D"
-        case charRxb = "713D0003-503E-4C75-BA94-3148F18D941D"
+        case charTxb = "713D0002-503E-4C75-BA94-3148F18D941E"
+        case charRxb = "713D0003-503E-4C75-BA94-3148F18D941E"
     }
     
     convenience init(redBearType: RedBearUUIDback) {
@@ -201,22 +201,25 @@ class BLE: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     func read() {
         
         guard let char = characteristics[RBL_CHAR_TX_UUID] else { return }
-        
-        activePeripheral?.readValue(for: char)
+        for p in peripherals {
+            p.readValue(for: char)
+        }
     }
     
     func write(data: NSData) {
         
         guard let char = characteristics[RBL_CHAR_RX_UUID] else { return }
-        
-        activePeripheral?.writeValue(data as Data, for: char, type: .withoutResponse)
+        for p in peripherals {
+            p.writeValue(data as Data, for: char, type: .withoutResponse)
+        }
     }
     
     func enableNotifications(enable: Bool) {
         
         guard let char = characteristics[RBL_CHAR_TX_UUID] else { return }
-        
-        activePeripheral?.setNotifyValue(enable, for: char)
+        for p in peripherals {
+            p.setNotifyValue(enable, for: char)
+        }
     }
     
     func readRSSI(completion: @escaping (_ RSSI: NSNumber?, _ error: Error?) -> ()) {
@@ -256,6 +259,7 @@ class BLE: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         print("[DEBUG] Connected to peripheral \(peripheral.identifier.uuidString)")
         
         activePeripheral = peripheral
+        peripherals.append(peripheral)
         
         activePeripheral?.delegate = self
         activePeripheral?.discoverServices([CBUUID(redBearType: .servicef), CBUUID(redBearType: .servicem), CBUUID(redBearType: .services), CBUUID(redBearType: .serviceb)])
@@ -289,11 +293,23 @@ class BLE: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         }
         
         print("[DEBUG] Found services for peripheral: \(peripheral.identifier.uuidString)")
-        
-        
+        var theCharacteristics = [CBUUID(redBearType: .charRxf), CBUUID(redBearType: .charTxf)]
+        switch peripheral.name {
+        case "front":
+            theCharacteristics = [CBUUID(redBearType: .charRxf), CBUUID(redBearType: .charTxf)]
+        case "mirror":
+            theCharacteristics = [CBUUID(redBearType: .charRxm), CBUUID(redBearType: .charTxm)]
+        case "side":
+            theCharacteristics = [CBUUID(redBearType: .charRxs), CBUUID(redBearType: .charTxs)]
+        case "back":
+            theCharacteristics = [CBUUID(redBearType: .charRxb), CBUUID(redBearType: .charTxb)]
+        default:
+            theCharacteristics = [CBUUID(redBearType: .charRxf), CBUUID(redBearType: .charTxf)]
+        }
+
+        NSLog(peripheral.name!)
+//        NSLog(theCharacteristics.debugDescription)
         for service in peripheral.services! {
-            let theCharacteristics = [CBUUID(redBearType: .charRxf), CBUUID(redBearType: .charTxf), CBUUID(redBearType: .charRxm), CBUUID(redBearType: .charTxm), CBUUID(redBearType: .charRxs), CBUUID(redBearType: .charTxs), CBUUID(redBearType: .charRxb), CBUUID(redBearType: .charTxb)]
-            
             peripheral.discoverCharacteristics(theCharacteristics, for: service)
         }
     }
@@ -306,8 +322,9 @@ class BLE: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         }
         
         print("[DEBUG] Found characteristics for peripheral: \(peripheral.identifier.uuidString)")
-        
+//        NSLog(service.characteristics!.debugDescription)
         for characteristic in service.characteristics! {
+            NSLog(characteristic.debugDescription)
             characteristics[characteristic.uuid.uuidString] = characteristic
         }
         
