@@ -107,7 +107,7 @@
         <!--FinishViewController-->
         <scene sceneID="isa-SY-HGq">
             <objects>
-                <viewController title="FinishViewController" id="JkG-hc-jo6" customClass="FinishViewController" customModule="ParallelPark" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FinishViewController" title="FinishViewController" id="JkG-hc-jo6" customClass="FinishViewController" customModule="ParallelPark" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vwA-SG-8h8"/>
                         <viewControllerLayoutGuide type="bottom" id="mbr-aG-V19"/>
