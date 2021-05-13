@@ -84,26 +84,26 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         // sensor.readings.description
         
         var state: Int = 0 // waiting for starting position
-        var threshold: Float = 50 // mm
-        var angleThreshold: Float = 5 // mm
-        var centeringThreshold: Float = 100 // mm
-        var threeFeetInMillimeter: Float = 3*305
-        var oneFootInMillimeter: Float = 1*305
+        let threshold: Float = 50 // mm
+        let angleThreshold: Float = 5 // mm
+        let centeringThreshold: Float = 100 // mm
+        let threeFeetInMillimeter: Float = 3*305
+        let oneFootInMillimeter: Float = 1*305
         
-        var originalIMU = 0
+//        var originalIMU = 0
         
-        var front: Float = 0
-        var mirror: Float = 0
-        var side: Float = 0
-        var back: Float = 0
-        
+        var front: Float = getDistance(sensor: frontSensor!)
+        var mirror: Float = getDistance(sensor: mirrorSensor!)
+        var side: Float = getDistance(sensor: sideSensor!)
+        var back: Float = getDistance(sensor: backSensor!)
         
         // if user clicks start:
             // state = 1
         
         while state == 1 { // preparing starting position
             
-            // update side and mirror values
+            mirror = getDistance(sensor: mirrorSensor!)
+            side = getDistance(sensor: sideSensor!)
             
             if inRange(value: mirror, target: threeFeetInMillimeter, threshold: threshold) && inRange(value: side, target: threeFeetInMillimeter, threshold: threshold) {
 //                 store IMU measurements
@@ -119,6 +119,10 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         }
         
         while state == 2 {
+            
+            mirror = getDistance(sensor: mirrorSensor!)
+            side = getDistance(sensor: sideSensor!)
+            
             if inRange(value: mirror, target: threeFeetInMillimeter, threshold: threshold) && inRange(value: side, target: threeFeetInMillimeter, threshold: threshold) {
 //                command user to begin backing up until the back measurement goes over 3 ft
                 state = 3
@@ -132,6 +136,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         
         while state == 3 {
             
+            mirror = getDistance(sensor: mirrorSensor!)
             var angle: Float = calculateAngle()
             
             if inRange(value: angle, target: 45, threshold: angleThreshold) {
@@ -149,6 +154,10 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         }
         
         while state == 4 {
+            
+            front = getDistance(sensor: frontSensor!)
+            back = getDistance(sensor: backSensor!)
+            
             if abs(front-back) < centeringThreshold {
                 state = 5
             } else if front > back {
@@ -180,6 +189,16 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
     func calculateAngle() -> Float {
         // TODO
         return 0
+    }
+    
+    func getDistance(sensor: Sensor) -> Float {
+        print("in getDistance function")
+        
+        let reading = Float(sensor.readings.description)
+        print("Sensor: ", sensor)
+        print("Sensor Reading: ", reading!)
+        return reading!
+        
     }
     
     // filter / smoothing function
