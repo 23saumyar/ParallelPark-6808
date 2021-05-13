@@ -109,7 +109,7 @@ void loop() {
   String gy = String(gyro.gyro.y, 2);
   String gz = String(gyro.gyro.z, 2);
   
-  switchCharacteristic.writeValue("DD"+dist+"D");
+  switchCharacteristic.writeValue("SD"+dist+"D");
   switchCharacteristic.writeValue("AX"+ax+"D");
   switchCharacteristic.writeValue("AY"+ay+"D");
   switchCharacteristic.writeValue("AZ"+az+"D");

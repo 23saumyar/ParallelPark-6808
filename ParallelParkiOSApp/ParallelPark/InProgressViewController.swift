@@ -54,16 +54,16 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
     }
     
     func sensorModel(_ model: SensorModel, didReceiveReadings readings: [Reading], forSensor sensor: Sensor?) {
-        if sensor?.name == "front" {
+        if sensor?.description == "front" {
             frontSensor = sensor!
             sensors.append(frontSensor!)
-        } else if sensor?.name == "mirror" {
+        } else if sensor?.description == "mirror" {
             mirrorSensor = sensor!
             sensors.append(mirrorSensor!)
-        } else if sensor?.name == "side" {
+        } else if sensor?.description == "side" {
             sideSensor = sensor!
             sensors.append(sideSensor!)
-        } else if sensor?.name == "back" {
+        } else if sensor?.description == "back" {
             backSensor = sensor!
             sensors.append(backSensor!)
         }
