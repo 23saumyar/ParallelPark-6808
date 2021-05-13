@@ -80,6 +80,7 @@ struct Sensor {
         readings = []
         self.name = name
     }
+
 }
 
 extension Sensor: CustomStringConvertible, Hashable, Equatable {
@@ -163,15 +164,15 @@ class SensorModel : BLEDelegate{
             sensorName = "side"
         } else if (identifier=="BD") {
             sensorName = "back"
-        } else if (identifier=="BA") { //TODO: check on this
-            r = ReadingType.IMU_a
-            sensorName = "back"
-        } else if (identifier=="BG") {
-            r = ReadingType.IMU_g
-            sensorName = "back"
-        } else if (identifier=="BM") {
-            r = ReadingType.IMU_m
-            sensorName = "back"
+//        } else if (identifier=="SA") { //TODO: check on this
+//            r = ReadingType.IMU_a
+//            sensorName = "back"
+//        } else if (identifier=="SG") {
+//            r = ReadingType.IMU_g
+//            sensorName = "back"
+//        } else if (identifier=="SM") {
+//            r = ReadingType.IMU_m
+//            sensorName = "back"
         }
         
         let reading = Reading(type: r, value: value!, sensorId: sensorName)
