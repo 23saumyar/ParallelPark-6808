@@ -58,13 +58,13 @@ extension Reading: CustomStringConvertible {
         }
         switch type {
         case .Distance:
-            return "\(numberString)mm" //TODO: change to correct units
+            return numberString //TODO: change to correct units
         case .IMU_g:
-            return "\(numberString)deg"
+            return numberString
         case .IMU_a:
-            return "\(numberString)m/s^2"
+            return numberString
         case .IMU_m:
-            return "\(numberString)mag" //TODO: fix units
+            return numberString //TODO: fix units
         default:
             return "\(type)"
         }
