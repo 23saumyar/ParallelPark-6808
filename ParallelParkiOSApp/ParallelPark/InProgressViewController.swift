@@ -252,12 +252,6 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         // orange
         // Text of how much further to move
         var disToMove = 2
-<<<<<<< HEAD
-        self.view.backgroundColor = UIColor.orange
-
-        self.textLabel.text = "Found a space! Please move forward " + disToMove.description + " more meters"
-=======
-        
         DispatchQueue.main.async {
             self.view.backgroundColor = UIColor.orange
             self.textLabel.text = "Found a space! Please move forward " + disToMove.description + " more meters"
@@ -283,7 +277,6 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
             self.view.backgroundColor = UIColor.orange
             self.textLabel.text = "Pull up ~3ft next to the car in front of your desired parking spot and try again"
         }
->>>>>>> 23a3ab6ee4147a55a722731115f172b3690cb21c
     }
     
     func UI_turnWheelRight() {
