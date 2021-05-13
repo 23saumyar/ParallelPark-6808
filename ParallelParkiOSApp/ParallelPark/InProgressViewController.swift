@@ -8,6 +8,21 @@
 
 import UIKit
 
+extension DispatchQueue {
+
+    static func background(delay: Double = 0.0, background: (()->Void)? = nil, completion: (() -> Void)? = nil) {
+        DispatchQueue.global(qos: .background).async {
+            background?()
+            if let completion = completion {
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
+                    completion()
+                })
+            }
+        }
+    }
+
+}
+
 class InProgressViewController: UIViewController, SensorModelDelegate {
 
     @IBOutlet weak var textLabel: UILabel!
@@ -23,6 +38,8 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
 //    convenience init(sensor: Sensor?) {
 //       //TODO
 //    }
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,9 +94,23 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         if frontSensor != nil && sideSensor != nil && mirrorSensor != nil && backSensor != nil && canPark == false {
             canPark = true
             
-            print("calling park() function")
-            park()
+            DispatchQueue.background(background: {
+                // do something in background
+                
+                print("calling park() function")
+                self.park()
+                
+            }, completion:{
+                // when background job finished, do something in main thread
+                
+            })
+            
+
         }
+        
+        NSLog("receive readings")
+        NSLog(sensor!.description)
+        NSLog(readings.debugDescription)
 
 //        self.tableView.reloadData()
     }
@@ -89,98 +120,105 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
     
     func park() {
         print("in park() function")
-        
-        // sensor.readings.description
-        
-        var state: Int = 1 // waiting for starting position
-        let threshold: Float = 50 // mm
+                
+        var state: Int = 0 // waiting for starting position
+        let threshold: Float = 100 // mm
         let angleThreshold: Float = 5 // mm
         let centeringThreshold: Float = 100 // mm
         let threeFeetInMillimeter: Float = 3*305
         let oneFootInMillimeter: Float = 1*305
-        
-//        var originalIMU = 0
-        
+                
         var front: Float = getDistance(sensor: frontSensor!)
         var mirror: Float = getDistance(sensor: mirrorSensor!)
         var side: Float = getDistance(sensor: sideSensor!)
         var back: Float = getDistance(sensor: backSensor!)
         
+        UI_foundSpace()
+        sleep(5)
+        state = 1
+        
         while state == 1 { // preparing starting position
             print("state 1")
-            print("preparing starting position")
             
             mirror = getDistance(sensor: mirrorSensor!)
+            print("mirror: ", mirror)
             side = getDistance(sensor: sideSensor!)
-            
+            print("side: ", side)
+
             if inRange(value: mirror, target: threeFeetInMillimeter, threshold: threshold) && inRange(value: side, target: threeFeetInMillimeter, threshold: threshold) {
-//                 store IMU measurements
-//                 command user to begin backing up until the back measurement goes over 3 ft
+                UI_backUp()
+                print("@user - start backing up!")
+                //store compass measurements
+                //command user to begin backing up (until the back > 3 ft)
+                print("command user to begin backing up")
                 state = 2
+                print("state 2")
             } else if inRange(value: mirror, target: threeFeetInMillimeter, threshold: threshold) && (side > (threeFeetInMillimeter+threshold)) {
-//                 command user to move up until both sensors have measurements in range
+                UI_moveUp()
+                print("command user to move up until both sensors have measurements in range")
             } else if inRange(value: side, target: threeFeetInMillimeter, threshold: threshold) && (mirror > (threeFeetInMillimeter+threshold)) {
-//                 command user to back up until both sensors have measurements in range
+                UI_backUp()
+                print("command user to back up until both sensors have measurements in range")
             } else {
-//             command user to pull up about 3 feet from the car in front of the desired parking spot and try again
+                UI_tryAgain()
+                print("command user to pull up ~3 ft from the car in front of the desired parking spot and try again")
             }
         }
         
         while state == 2 {
-            print("state 2")
             
             mirror = getDistance(sensor: mirrorSensor!)
             side = getDistance(sensor: sideSensor!)
             
             if inRange(value: mirror, target: threeFeetInMillimeter, threshold: threshold) && inRange(value: side, target: threeFeetInMillimeter, threshold: threshold) {
-//                command user to begin backing up until the back measurement goes over 3 ft
-                state = 3
+                UI_backUp()
+                print("command user to begin backing up")
             } else if inRange(value: mirror, target: threeFeetInMillimeter, threshold: threshold) && (side > threeFeetInMillimeter+threshold) {
-//                command user to turn the wheel one full rotation to the right, making sure no cars are coming, and then start moving backwards slowly
+                state = 3
+                UI_turnWheelRight()
+                print("state 3")
+                print("command user to turn the wheel one full rotation to the right and start backing up slowly")
             } else {
-//                print that the position doesn't seem right - perhaps try again
+                UI_tryAgain()
+                print("position doesn't seem right - try starting over")
                 state = 1
+                print("state 1")
             }
         }
         
         while state == 3 {
-            print("state = 3")
             
             mirror = getDistance(sensor: mirrorSensor!)
-            var angle: Float = calculateAngle()
             
-            if inRange(value: angle, target: 45, threshold: angleThreshold) {
-                if inRange(value: mirror, target: oneFootInMillimeter, threshold: threshold) || (mirror > (threeFeetInMillimeter+threshold)) {
-//                    command user to stop, mirror should be at vehicle's tail light
-//                    command user to rotate wheel fully to the left and continue backing up until IMU measurements match OG measurements indicating straightened out
-//                    command user to straighten wheel
-                    state = 4
-                }
-            } else if angle > (45+angleThreshold) {
-//                command user to turn wheel a little in (?) direction
-            } else if angle < (45+angleThreshold) {
-//                command user to turn wheel a little in (?) direction
+            if inRange(value: mirror, target: oneFootInMillimeter, threshold: threshold) || (mirror > (threeFeetInMillimeter+threshold)) {
+                // mirror should be at vehicle's tail light
+                UI_turnWheelLeft()
+                print("command user to stop, rotate wheel fully to the left, continue backing up until parallel to the curb")
+                state = 4
+                print("state 4")
             }
         }
         
         while state == 4 {
-            print("state 4")
             
             front = getDistance(sensor: frontSensor!)
             back = getDistance(sensor: backSensor!)
             
             if abs(front-back) < centeringThreshold {
                 state = 5
+                print("state 5")
             } else if front > back {
-//                command user to slowly back up
+                UI_backUp()
+                print("inch back")
             } else if back > front {
-//                command user to slowly inch up
+                UI_moveUp()
+                print("inch forward")
             }
         }
         
         if state == 5 {
-            print("state 5")
-            // display final screen
+            print("park complete!")
+            UI_complete() // display final screen
             state = 0
         }
     }
@@ -197,66 +235,100 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         }
     }
     
-    // calculate and return angle of car compared to original measurement based on latest IMU readings
-    func calculateAngle() -> Float {
-        // TODO
-        return 0
-    }
     
     func getDistance(sensor: Sensor) -> Float {
-        print("in getDistance function")
-        print(sensor.readings.last?.description)
-//        let reading = sensor.readings.last?.description!
-//        let value = Float(reading)
-//        print("Sensor: ", sensor)
-//        print("Sensor Reading: ", value)
-//        return value
-        return 0
+        var reading = (sensor.readings.last?.description)!
+        let value = Float(reading)!
+        return value
         
     }
     
-    // filter / smoothing function
-    
-    
+    //UI update functions
     
 
-    
-    
-    
-    //UI changes
     
     func UI_foundSpace() {
         // orange
         // Text of how much further to move
         var disToMove = 2
-        self.view.backgroundColor = UIColor.orange
-        self.textLabel.text = "Found a space! Please move forward " + disToMove.description + " more meters"
+        
+        DispatchQueue.main.async {
+            self.view.backgroundColor = UIColor.orange
+            self.textLabel.text = "Found a space! Please move forward " + disToMove.description + " more meters"
+        }
     }
     
+    func UI_moveUp() {
+        DispatchQueue.main.async {
+            self.view.backgroundColor = UIColor.orange
+            self.textLabel.text = "Move up slowly"
+        }
+    }
+    
+    func UI_backUp() {
+        DispatchQueue.main.async {
+            self.view.backgroundColor = UIColor.orange
+            self.textLabel.text = "Back up slowly"
+        }
+    }
+    
+    func UI_tryAgain() {
+        DispatchQueue.main.async {
+            self.view.backgroundColor = UIColor.orange
+            self.textLabel.text = "Pull up ~3ft next to the car in front of your desired parking spot and try again"
+        }
+    }
+    
+    func UI_turnWheelRight() {
+        DispatchQueue.main.async {
+            self.view.backgroundColor = UIColor.orange
+            self.textLabel.text = "Turn the wheel one full rotation to the right, make sure no cars are coming, and slowly start backing up"
+        }
+    }
+    
+    func UI_turnWheelLeft() {
+        DispatchQueue.main.async {
+            self.view.backgroundColor = UIColor.red
+            self.textLabel.text = "Stop. Rotate wheel fully to the left and continue backing up until parallel to the curb"
+        }
+    }
+    
+    
+
     func UI_movedForward() {
-        self.view.backgroundColor = UIColor.red
-        self.textLabel.text = "Stop! Crank your wheel all the way to the right. Back up into the space"
+        DispatchQueue.main.async {
+            self.view.backgroundColor = UIColor.red
+            self.textLabel.text = "Stop! Crank your wheel all the way to the right. Back up into the space"
+        }
     }
     
     func UI_movingBack() {
         var disToMove = 2
-        self.view.backgroundColor = UIColor.orange
-        self.textLabel.text = "Keep backing up into the space " + disToMove.description + " more meters"
+        DispatchQueue.main.async {
+            self.view.backgroundColor = UIColor.orange
+            self.textLabel.text = "Keep backing up into the space " + disToMove.description + " more meters"
+        }
     }
     
     func UI_movedBack() {
-        self.view.backgroundColor = UIColor.red
-        self.textLabel.text = "Stop! Crank your wheel all the way to the right. Move forward to align into the space"
+        DispatchQueue.main.async {
+            self.view.backgroundColor = UIColor.red
+            self.textLabel.text = "Stop! Crank your wheel all the way to the right. Move forward to align into the space"
+        }
     }
     
     func UI_movingForward() {
-        var disToMove = 2
-        self.view.backgroundColor = UIColor.orange
-        self.textLabel.text = "Keep moving forward to align into the space for " + disToMove.description + " more meters"
+        DispatchQueue.main.async {
+            var disToMove = 2
+            self.view.backgroundColor = UIColor.orange
+            self.textLabel.text = "Keep moving forward to align into the space for " + disToMove.description + " more meters"
+        }
     }
     
     func UI_complete(){
-        let VC = self.storyboard?.instantiateViewController(withIdentifier: "FinishViewController") as! FinishViewController
-        self.present(VC, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let VC = self.storyboard?.instantiateViewController(withIdentifier: "FinishViewController") as! FinishViewController
+            self.present(VC, animated: true, completion: nil)
+        }
     }
 }
