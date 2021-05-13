@@ -147,20 +147,35 @@ class SensorModel : BLEDelegate{
 
         // get a substring that excludes the first and last characters
         NSLog(str.debugDescription)
+        let identifier = str[..<str.index(str.startIndex, offsetBy: 2)]
         
         let substring = str[str.index(after: str.startIndex)..<str.index(before: str.endIndex)]
         // convert a Substring to a Double
-        let value = Double(substring[substring.index(after: substring.startIndex)...])
+        let value = Double(substring[substring.index(substring.startIndex, offsetBy: 1)...])
+        
         var r = ReadingType.Distance
-        if (str.hasPrefix("IMU_g")){ //TODO: change this
-            r = ReadingType.IMU_g
-        } else if (str.hasPrefix("IMU_a")){
+        var sensorName = ""
+        if (identifier=="FD") {
+            sensorName = "front"
+        } else if (identifier=="MD") {
+            sensorName = "mirror"
+        } else if (identifier=="SD") {
+            sensorName = "side"
+        } else if (identifier=="BD") {
+            sensorName = "back"
+        } else if (identifier=="BA") { //TODO: check on this
             r = ReadingType.IMU_a
-        } else if (str.hasPrefix("IMU_m")){
+            sensorName = "back"
+        } else if (identifier=="BG") {
+            r = ReadingType.IMU_g
+            sensorName = "back"
+        } else if (identifier=="BM") {
             r = ReadingType.IMU_m
+            sensorName = "back"
         }
         
-        let reading = Reading(type: r, value: value!, sensorId: peripheral.name)
+        let reading = Reading(type: r, value: value!, sensorId: sensorName)
+        activeSensor = Sensor(name: sensorName)
         activeSensor?.readings.append(reading)
         delegate?.sensorModel(self, didReceiveReadings: [reading], forSensor: activeSensor)
     }

@@ -17,7 +17,7 @@ class FinishViewController: UIViewController {
     }
 
     @IBAction func buttonPressed(_ sender: UIButton) {
-        let VC = self.storyboard?.instantiateViewController(withIdentifier: "StartViewController") as! InProgressViewController
+        let VC = self.storyboard?.instantiateViewController(withIdentifier: "StartViewController") as! StartViewController
         self.present(VC, animated: true, completion: nil)
     }
 

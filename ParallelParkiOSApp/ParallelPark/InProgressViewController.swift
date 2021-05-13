@@ -10,6 +10,8 @@ import UIKit
 
 class InProgressViewController: UIViewController, SensorModelDelegate {
 
+    @IBOutlet weak var textLabel: UILabel!
+
     var sensors: [Sensor] = []
     var frontSensor: Sensor? = nil;
     var mirrorSensor: Sensor? = nil;
@@ -249,5 +251,44 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    
+    
+    
+    //UI changes
+    
+    func UI_foundSpace() {
+        // orange
+        // Text of how much further to move
+        var disToMove = 2
+        self.view.backgroundColor = UIColor.orange
+        self.textLabel.text = "Found a space! Please move forward " + disToMove.description + " more meters"
+    }
+    
+    func UI_movedForward() {
+        self.view.backgroundColor = UIColor.red
+        self.textLabel.text = "Stop! Crank your wheel all the way to the right. Back up into the space"
+    }
+    
+    func UI_movingBack() {
+        var disToMove = 2
+        self.view.backgroundColor = UIColor.orange
+        self.textLabel.text = "Keep backing up into the space " + disToMove.description + " more meters"
+    }
+    
+    func UI_movedBack() {
+        self.view.backgroundColor = UIColor.red
+        self.textLabel.text = "Stop! Crank your wheel all the way to the right. Move forward to align into the space"
+    }
+    
+    func UI_movingForward() {
+        var disToMove = 2
+        self.view.backgroundColor = UIColor.orange
+        self.textLabel.text = "Keep moving forward to align into the space for " + disToMove.description + " more meters"
+    }
+    
+    func UI_complete(){
+        let VC = self.storyboard?.instantiateViewController(withIdentifier: "FinishViewController") as! FinishViewController
+        self.present(VC, animated: true, completion: nil)
+    }
 }
