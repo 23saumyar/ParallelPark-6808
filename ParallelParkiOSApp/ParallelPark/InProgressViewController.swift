@@ -79,6 +79,8 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
     
     func park() {
         
+        // sensor.readings.description
+        
         var state: Int = 0 // waiting for starting position
         var threshold: Float = 50 // mm
         var angleThreshold: Float = 5 // mm
@@ -177,6 +179,8 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         // TODO
         return 0
     }
+    
+    // filter / smoothing function
     
     
     
