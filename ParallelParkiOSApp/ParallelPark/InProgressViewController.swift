@@ -194,6 +194,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
                 // mirror should be at vehicle's tail light
                 UI_turnWheelLeft()
                 print("command user to stop, rotate wheel fully to the left, continue backing up until parallel to the curb")
+                sleep(10)
                 state = 4
                 print("state 4")
             }
