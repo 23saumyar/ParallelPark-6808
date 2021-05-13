@@ -17,6 +17,8 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
     var mirrorSensor: Sensor? = nil;
     var sideSensor: Sensor? = nil;
     var backSensor: Sensor? = nil;
+    
+    var canPark: Bool = false;
 
 //    convenience init(sensor: Sensor?) {
 //       //TODO
@@ -25,7 +27,6 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         SensorModel.shared.delegate = self
-        // park()
     }
 
     override func didReceiveMemoryWarning() {
@@ -69,9 +70,16 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
             backSensor = sensor!
             sensors.append(backSensor!)
         }
-        NSLog("recieve readings")
+        NSLog("receive readings")
         NSLog(sensor!.description)
         NSLog(readings.debugDescription)
+        
+        if frontSensor != nil && sideSensor != nil && mirrorSensor != nil && backSensor != nil && canPark == false {
+            canPark = true
+            
+            print("calling park() function")
+            park()
+        }
 
 //        self.tableView.reloadData()
     }
@@ -80,10 +88,11 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
 // working parking pseudo code:
     
     func park() {
+        print("in park() function")
         
         // sensor.readings.description
         
-        var state: Int = 0 // waiting for starting position
+        var state: Int = 1 // waiting for starting position
         let threshold: Float = 50 // mm
         let angleThreshold: Float = 5 // mm
         let centeringThreshold: Float = 100 // mm
@@ -97,10 +106,9 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         var side: Float = getDistance(sensor: sideSensor!)
         var back: Float = getDistance(sensor: backSensor!)
         
-        // if user clicks start:
-            // state = 1
-        
         while state == 1 { // preparing starting position
+            print("state 1")
+            print("preparing starting position")
             
             mirror = getDistance(sensor: mirrorSensor!)
             side = getDistance(sensor: sideSensor!)
@@ -119,6 +127,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         }
         
         while state == 2 {
+            print("state 2")
             
             mirror = getDistance(sensor: mirrorSensor!)
             side = getDistance(sensor: sideSensor!)
@@ -135,6 +144,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         }
         
         while state == 3 {
+            print("state = 3")
             
             mirror = getDistance(sensor: mirrorSensor!)
             var angle: Float = calculateAngle()
@@ -154,6 +164,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         }
         
         while state == 4 {
+            print("state 4")
             
             front = getDistance(sensor: frontSensor!)
             back = getDistance(sensor: backSensor!)
@@ -168,6 +179,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         }
         
         if state == 5 {
+            print("state 5")
             // display final screen
             state = 0
         }
@@ -193,11 +205,13 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
     
     func getDistance(sensor: Sensor) -> Float {
         print("in getDistance function")
-        
-        let reading = Float(sensor.readings.description)
-        print("Sensor: ", sensor)
-        print("Sensor Reading: ", reading!)
-        return reading!
+        print(sensor.readings.last?.description)
+//        let reading = sensor.readings.last?.description!
+//        let value = Float(reading)
+//        print("Sensor: ", sensor)
+//        print("Sensor Reading: ", value)
+//        return value
+        return 0
         
     }
     
