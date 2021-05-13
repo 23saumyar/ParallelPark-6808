@@ -43,6 +43,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UI_foundSpace()
         SensorModel.shared.delegate = self
     }
 
@@ -252,7 +253,6 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         // orange
         // Text of how much further to move
         var disToMove = 2
-        
         DispatchQueue.main.async {
             self.view.backgroundColor = UIColor.orange
             self.textLabel.text = "Found a space! Please move forward " + disToMove.description + " more meters"
