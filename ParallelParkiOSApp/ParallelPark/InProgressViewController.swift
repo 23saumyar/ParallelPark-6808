@@ -125,8 +125,8 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         print("in park() function")
                 
         var state: Int = 0 // waiting for starting position
-        let threshold: Float = 250 // mm
-        let centeringThreshold: Float = 100 // mm
+        let threshold: Float = 100 // mm
+        let centeringThreshold: Float = 250 // mm
         let threeFeetInMillimeter: Float = 3*305
         let oneFootInMillimeter: Float = 1*305
                 
@@ -147,7 +147,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
             side = getDistance(sensor: sideSensor!)
             print("side: ", side)
 
-            if inRange(value: mirror, target: threeFeetInMillimeter, thr     eshold: threshold) && inRange(value: side, target: threeFeetInMillimeter, threshold: threshold) {
+            if inRange(value: mirror, target: threeFeetInMillimeter, threshold: threshold) && inRange(value: side, target: threeFeetInMillimeter, threshold: threshold) {
                 UI_backUp()
                 print("@user - start backing up!")
                 //store compass measurements
