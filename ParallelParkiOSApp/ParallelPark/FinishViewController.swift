@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import AVFoundation
+
 
 class FinishViewController: UIViewController {
 
     override func viewDidLoad() {
+        speak(text: "Great job! You've successfully parked!")
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
@@ -19,6 +22,13 @@ class FinishViewController: UIViewController {
     @IBAction func buttonPressed(_ sender: UIButton) {
         let VC = self.storyboard?.instantiateViewController(withIdentifier: "StartViewController") as! StartViewController
         self.present(VC, animated: true, completion: nil)
+    }
+    
+    func speak(text: String) {
+        let utterance = AVSpeechUtterance(string: text)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
+        let synthesizer = AVSpeechSynthesizer()
+        synthesizer.speak(utterance)
     }
 
     /*

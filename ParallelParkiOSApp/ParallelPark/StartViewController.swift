@@ -7,12 +7,20 @@
 //
 
 import UIKit
+import AVFoundation
 
 class StartViewController: UIViewController {
     
     override func viewDidLoad() {
-        print("start screen loaded")
+        let utterance = AVSpeechUtterance(string: "Welcome to Parallel Park Helper! Click start to look for a space!")
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
+        let synthesizer = AVSpeechSynthesizer()
+        synthesizer.speak(utterance)
+        
         super.viewDidLoad()
+        
+        // Speak text
+        
         // Do any additional setup after loading the view.
     }
     

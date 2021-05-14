@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 extension DispatchQueue {
 
@@ -331,5 +332,12 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
             let VC = self.storyboard?.instantiateViewController(withIdentifier: "FinishViewController") as! FinishViewController
             self.present(VC, animated: true, completion: nil)
         }
+    }
+    
+    func speak(text: String) {
+        let utterance = AVSpeechUtterance(string: text)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
+        let synthesizer = AVSpeechSynthesizer()
+        synthesizer.speak(utterance)
     }
 }
