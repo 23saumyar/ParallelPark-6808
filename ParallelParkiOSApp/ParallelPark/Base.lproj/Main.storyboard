@@ -10,7 +10,6 @@
         <!--StartViewController-->
         <scene sceneID="PE0-YU-8lQ">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mZE-pl-tWn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController title="StartViewController" id="naB-fN-oza" customClass="StartViewController" customModule="ParallelPark" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pvV-h6-fF2"/>
@@ -63,6 +62,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="NOA-la-zOy"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mZE-pl-tWn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="221.59999999999999" y="19.340329835082461"/>
         </scene>
@@ -149,6 +149,9 @@ Distance behind: ___ feet
                         </subviews>
                         <color key="backgroundColor" red="0.82003907324453773" green="1" blue="0.75675496098537798" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </view>
+                    <connections>
+                        <outlet property="textLabel" destination="JU4-FK-X4w" id="xzI-hx-X3G"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qgT-cT-sRm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

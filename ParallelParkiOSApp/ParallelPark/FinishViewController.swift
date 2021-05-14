@@ -17,7 +17,7 @@ class FinishViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        textLabel?.text = text
+        textLabel?.text = textSent
 
         speak(text: textSent)
 
