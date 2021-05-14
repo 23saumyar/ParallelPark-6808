@@ -126,8 +126,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
                 
         var state: Int = 0 // waiting for starting position
         let threshold: Float = 100 // mm
-//        let angleThreshold: Float = 5 // mm
-        let centeringThreshold: Float = 100 // mm
+        let centeringThreshold: Float = 250 // mm
         let threeFeetInMillimeter: Float = 3*305
         let oneFootInMillimeter: Float = 1*305
                 
@@ -136,9 +135,10 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         var side: Float = getDistance(sensor: sideSensor!)
         var back: Float = getDistance(sensor: backSensor!)
         
-        UI_foundSpace()
-        sleep(5)
+//        UI_foundSpace()
+//        sleep(5)
         state = 1
+        UI_tryAgain()
         
         while state == 1 { // preparing starting position
             print("state 1")
@@ -183,13 +183,14 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
                 UI_turnWheelRight()
                 print("state 3")
                 print("command user to turn the wheel one full rotation to the right and start backing up slowly")
-            } else {
-                UI_tryAgain()
-                print("position doesn't seem right - try starting over")
-                state = 1
-                // self.spoken = 0
-                print("state 1")
             }
+//            else {
+//                UI_tryAgain()
+//                print("position doesn't seem right - try starting over")
+//                state = 1
+//                // self.spoken = 0
+//                print("state 1")
+//            }
         }
         
         while state == 3 {
@@ -200,7 +201,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
                 // mirror should be at vehicle's tail light
                 UI_turnWheelLeft()
                 print("command user to stop, rotate wheel fully to the left, continue backing up until parallel to the curb")
-                sleep(10)
+                sleep(5)
                 state = 4
                 print("state 4")
             }
@@ -284,7 +285,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         DispatchQueue.main.async {
             self.view.backgroundColor = UIColor.orange
             self.textLabel.text = "Found a space! Please move forward " + disToMove.description + " more meters"
-            self.speak(text: self.textLabel.text!)
+//            self.speak(text: self.textLabel.text!)
             
         }
     }
@@ -293,7 +294,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         DispatchQueue.main.async {
             self.view.backgroundColor = UIColor.orange
             self.textLabel.text = "Move up slowly"
-            self.speak(text: self.textLabel.text!)
+//            self.speak(text: self.textLabel.text!)
         }
     }
     
@@ -301,15 +302,15 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         DispatchQueue.main.async {
             self.view.backgroundColor = UIColor.orange
             self.textLabel.text = "Back up slowly"
-            self.speak(text: self.textLabel.text!)
+//            self.speak(text: self.textLabel.text!)
         }
     }
     
     func UI_tryAgain() {
         DispatchQueue.main.async {
             self.view.backgroundColor = UIColor.orange
-            self.textLabel.text = "Pull up ~3ft next to the car in front of your desired parking spot and try again"
-            self.speak(text: self.textLabel.text!)
+            self.textLabel.text = "Pull up ~3ft next to the car in front of your desired parking spot"
+//            self.speak(text: self.textLabel.text!)
         }
     }
     
@@ -317,7 +318,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         DispatchQueue.main.async {
             self.view.backgroundColor = UIColor.orange
             self.textLabel.text = "Turn the wheel one full rotation to the right, make sure no cars are coming, and slowly start backing up"
-            self.speak(text: self.textLabel.text!)
+//            self.speak(text: self.textLabel.text!)
         }
     }
     
@@ -325,17 +326,15 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         DispatchQueue.main.async {
             self.view.backgroundColor = UIColor.red
             self.textLabel.text = "Stop. Rotate wheel fully to the left and continue backing up until parallel to the curb"
-            self.speak(text: self.textLabel.text!)
+//            self.speak(text: self.textLabel.text!)
         }
     }
-    
-    
 
     func UI_movedForward() {
         DispatchQueue.main.async {
             self.view.backgroundColor = UIColor.red
             self.textLabel.text = "Stop! Crank your wheel all the way to the right. Back up into the space"
-            self.speak(text: self.textLabel.text!)
+//            self.speak(text: self.textLabel.text!)
         }
     }
     
@@ -344,7 +343,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         DispatchQueue.main.async {
             self.view.backgroundColor = UIColor.orange
             self.textLabel.text = "Keep backing up into the space " + disToMove.description + " more meters"
-            self.speak(text: self.textLabel.text!)
+//            self.speak(text: self.textLabel.text!)
         }
     }
     
@@ -352,7 +351,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         DispatchQueue.main.async {
             self.view.backgroundColor = UIColor.red
             self.textLabel.text = "Stop! Crank your wheel all the way to the right. Move forward to align into the space"
-            self.speak(text: self.textLabel.text!)
+//            self.speak(text: self.textLabel.text!)
         }
     }
     
@@ -361,7 +360,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
             var disToMove = 2
             self.view.backgroundColor = UIColor.orange
             self.textLabel.text = "Keep moving forward to align into the space for " + disToMove.description + " more meters"
-            self.speak(text: self.textLabel.text!)
+//            self.speak(text: self.textLabel.text!)
         }
     }
     
@@ -372,20 +371,20 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         }
     }
     
-    func speakS(text: String) {
-        let utterance = AVSpeechUtterance(string: text)
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
-        let synthesizer = AVSpeechSynthesizer()
-        synthesizer.speak(utterance)
-    // speech component
-    }
-    @IBAction func speak(text: String) {
-        let speechUtterance = AVSpeechUtterance(string: text)
-
-        speechUtterance.rate = 0.25
-        speechUtterance.pitchMultiplier = 0.25
-        speechUtterance.volume = 0.75
-
-        speechSynthesizer.speak(speechUtterance)
-    }
+//    func speakS(text: String) {
+//        let utterance = AVSpeechUtterance(string: text)
+//        utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
+//        let synthesizer = AVSpeechSynthesizer()
+//        synthesizer.speak(utterance)
+//    // speech component
+//    }
+//    @IBAction func speak(text: String) {
+//        let speechUtterance = AVSpeechUtterance(string: text)
+//
+//        speechUtterance.rate = 0.25
+//        speechUtterance.pitchMultiplier = 0.25
+//        speechUtterance.volume = 0.75
+//
+//        speechSynthesizer.speak(speechUtterance)
+//    }
 }
