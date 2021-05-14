@@ -125,8 +125,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         print("in park() function")
                 
         var state: Int = 0 // waiting for starting position
-        let threshold: Float = 100 // mm
-//        let angleThreshold: Float = 5 // mm
+        let threshold: Float = 250 // mm
         let centeringThreshold: Float = 100 // mm
         let threeFeetInMillimeter: Float = 3*305
         let oneFootInMillimeter: Float = 1*305
