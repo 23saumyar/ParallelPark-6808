@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 extension DispatchQueue {
 
@@ -26,6 +27,9 @@ extension DispatchQueue {
 class InProgressViewController: UIViewController, SensorModelDelegate {
 
     @IBOutlet weak var textLabel: UILabel!
+    
+    let speechSynthesizer = AVSpeechSynthesizer()
+    // var spoken: Int = 0 //say line when spoken is 0 -- repeat however often
 
     var sensors: [Sensor] = []
     var frontSensor: Sensor? = nil;
@@ -38,8 +42,6 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
 //    convenience init(sensor: Sensor?) {
 //       //TODO
 //    }
-    
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -172,10 +174,12 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
             side = getDistance(sensor: sideSensor!)
             
             if inRange(value: mirror, target: threeFeetInMillimeter, threshold: threshold) && inRange(value: side, target: threeFeetInMillimeter, threshold: threshold) {
+                // self.spoken = 0
                 UI_backUp()
                 print("command user to begin backing up")
             } else if inRange(value: mirror, target: threeFeetInMillimeter, threshold: threshold) && (side > threeFeetInMillimeter+threshold) {
                 state = 3
+                // self.spoken = 0
                 UI_turnWheelRight()
                 print("state 3")
                 print("command user to turn the wheel one full rotation to the right and start backing up slowly")
@@ -183,6 +187,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
                 UI_tryAgain()
                 print("position doesn't seem right - try starting over")
                 state = 1
+                // self.spoken = 0
                 print("state 1")
             }
         }
@@ -256,6 +261,8 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         DispatchQueue.main.async {
             self.view.backgroundColor = UIColor.orange
             self.textLabel.text = "Found a space! Please move forward " + disToMove.description + " more meters"
+            self.speak(text: self.textLabel.text!)
+            
         }
     }
     
@@ -263,6 +270,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         DispatchQueue.main.async {
             self.view.backgroundColor = UIColor.orange
             self.textLabel.text = "Move up slowly"
+            self.speak(text: self.textLabel.text!)
         }
     }
     
@@ -270,6 +278,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         DispatchQueue.main.async {
             self.view.backgroundColor = UIColor.orange
             self.textLabel.text = "Back up slowly"
+            self.speak(text: self.textLabel.text!)
         }
     }
     
@@ -277,6 +286,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         DispatchQueue.main.async {
             self.view.backgroundColor = UIColor.orange
             self.textLabel.text = "Pull up ~3ft next to the car in front of your desired parking spot and try again"
+            self.speak(text: self.textLabel.text!)
         }
     }
     
@@ -284,6 +294,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         DispatchQueue.main.async {
             self.view.backgroundColor = UIColor.orange
             self.textLabel.text = "Turn the wheel one full rotation to the right, make sure no cars are coming, and slowly start backing up"
+            self.speak(text: self.textLabel.text!)
         }
     }
     
@@ -291,6 +302,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         DispatchQueue.main.async {
             self.view.backgroundColor = UIColor.red
             self.textLabel.text = "Stop. Rotate wheel fully to the left and continue backing up until parallel to the curb"
+            self.speak(text: self.textLabel.text!)
         }
     }
     
@@ -300,6 +312,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         DispatchQueue.main.async {
             self.view.backgroundColor = UIColor.red
             self.textLabel.text = "Stop! Crank your wheel all the way to the right. Back up into the space"
+            self.speak(text: self.textLabel.text!)
         }
     }
     
@@ -308,6 +321,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         DispatchQueue.main.async {
             self.view.backgroundColor = UIColor.orange
             self.textLabel.text = "Keep backing up into the space " + disToMove.description + " more meters"
+            self.speak(text: self.textLabel.text!)
         }
     }
     
@@ -315,6 +329,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         DispatchQueue.main.async {
             self.view.backgroundColor = UIColor.red
             self.textLabel.text = "Stop! Crank your wheel all the way to the right. Move forward to align into the space"
+            self.speak(text: self.textLabel.text!)
         }
     }
     
@@ -323,6 +338,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
             var disToMove = 2
             self.view.backgroundColor = UIColor.orange
             self.textLabel.text = "Keep moving forward to align into the space for " + disToMove.description + " more meters"
+            self.speak(text: self.textLabel.text!)
         }
     }
     
@@ -331,5 +347,16 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
             let VC = self.storyboard?.instantiateViewController(withIdentifier: "FinishViewController") as! FinishViewController
             self.present(VC, animated: true, completion: nil)
         }
+    }
+    
+    // speech component
+    @IBAction func speak(text: String) {
+        let speechUtterance = AVSpeechUtterance(string: text)
+//
+//        speechUtterance.rate = 0.25
+//        speechUtterance.pitchMultiplier = 0.25
+//        speechUtterance.volume = 0.75
+//
+        speechSynthesizer.speak(speechUtterance)
     }
 }
