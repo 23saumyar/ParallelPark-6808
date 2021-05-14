@@ -10,7 +10,7 @@
         <!--StartViewController-->
         <scene sceneID="PE0-YU-8lQ">
             <objects>
-                <viewController title="StartViewController" id="naB-fN-oza" customClass="StartViewController" customModule="ParallelPark" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StartViewController" title="StartViewController" id="naB-fN-oza" customClass="StartViewController" customModule="ParallelPark" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pvV-h6-fF2"/>
                         <viewControllerLayoutGuide type="bottom" id="S6o-jX-S0S"/>
