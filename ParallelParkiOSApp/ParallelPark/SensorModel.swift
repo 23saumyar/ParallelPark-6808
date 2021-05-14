@@ -76,7 +76,7 @@ struct Sensor {
     var name: String
     
     init(name: String) {
-        NSLog(name)
+//        NSLog(name)
         readings = []
         self.name = name
     }
@@ -147,7 +147,7 @@ class SensorModel : BLEDelegate{
         let str = String(data: data!, encoding: String.Encoding.ascii)!
 
         // get a substring that excludes the first and last characters
-        NSLog(str.debugDescription)
+//        NSLog(str.debugDescription)
         let identifier = str[..<str.index(str.startIndex, offsetBy: 2)]
         
         let substring = str[str.index(after: str.startIndex)..<str.index(before: str.endIndex)]

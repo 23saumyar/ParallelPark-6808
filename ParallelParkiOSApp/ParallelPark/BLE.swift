@@ -307,7 +307,7 @@ class BLE: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
             theCharacteristics = [CBUUID(redBearType: .charRxf), CBUUID(redBearType: .charTxf)]
         }
 
-        NSLog(peripheral.name!)
+//        NSLog(peripheral.name!)
 //        NSLog(theCharacteristics.debugDescription)
         for service in peripheral.services! {
             peripheral.discoverCharacteristics(theCharacteristics, for: service)
@@ -324,7 +324,7 @@ class BLE: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         print("[DEBUG] Found characteristics for peripheral: \(peripheral.identifier.uuidString)")
 //        NSLog(service.characteristics!.debugDescription)
         for characteristic in service.characteristics! {
-            NSLog(characteristic.debugDescription)
+//            NSLog(characteristic.debugDescription)
             characteristics[characteristic.uuid.uuidString] = characteristic
         }
         
