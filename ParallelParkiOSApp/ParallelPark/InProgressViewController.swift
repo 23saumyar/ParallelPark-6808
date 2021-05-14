@@ -367,7 +367,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
     func UI_complete(){
         DispatchQueue.main.async {
             let VC = self.storyboard?.instantiateViewController(withIdentifier: "FinishViewController") as! FinishViewController
-            VC.textSent = "Great job, you've successfully parked. /n " + frontSensor?.readings.last?.description + " mm from the front car. /n " + backSensor?.readings.last?.description + " mm from the back car."
+            VC.textSent = "Great job, you've successfully parked. /n " + (self.frontSensor?.readings.last?.description)! + " mm from the front car. /n " + (self.backSensor?.readings.last!.description)! + " mm from the back car."
             self.present(VC, animated: true, completion: nil)
         }
     }
