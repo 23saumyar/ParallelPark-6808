@@ -12,9 +12,14 @@ import AVFoundation
 
 class FinishViewController: UIViewController {
 
+    var textSent:String = ""
+    @IBOutlet weak var textLabel:UILabel?
+    
     override func viewDidLoad() {
-        speak(text: "Great job! You've successfully parked!")
         super.viewDidLoad()
+        textLabel?.text = text
+
+        speak(text: textSent)
 
         // Do any additional setup after loading the view.
     }

@@ -148,7 +148,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
             side = getDistance(sensor: sideSensor!)
             print("side: ", side)
 
-            if inRange(value: mirror, target: threeFeetInMillimeter, thr     eshold: threshold) && inRange(value: side, target: threeFeetInMillimeter, threshold: threshold) {
+            if inRange(value: mirror, target: threeFeetInMillimeter, threshold: threshold) && inRange(value: side, target: threeFeetInMillimeter, threshold: threshold) {
                 UI_backUp()
                 print("@user - start backing up!")
                 //store compass measurements
