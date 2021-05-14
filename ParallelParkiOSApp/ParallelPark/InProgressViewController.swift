@@ -124,7 +124,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
                 
         var state: Int = 0 // waiting for starting position
         let threshold: Float = 100 // mm
-        let angleThreshold: Float = 5 // mm
+//        let angleThreshold: Float = 5 // mm
         let centeringThreshold: Float = 100 // mm
         let threeFeetInMillimeter: Float = 3*305
         let oneFootInMillimeter: Float = 1*305
@@ -239,10 +239,33 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
     
     
     func getDistance(sensor: Sensor) -> Float {
-        var reading = (sensor.readings.last?.description)!
-        let value = Float(reading)!
+        
+        let reading1 = Float((sensor.readings.last?.description)!)
+        let reading2 = Float((sensor.readings.last?.description)!)
+        let reading3 = Float((sensor.readings.last?.description)!)
+        let reading4 = Float((sensor.readings.last?.description)!)
+        let reading5 = Float((sensor.readings.last?.description)!)
+        
+        let readings = [reading1!, reading2!, reading3!, reading4!, reading5!]
+        let value = filterAndAverage(readings: readings)
+        
         return value
         
+    }
+    
+    
+    func filterAndAverage(readings: [Float]) -> Float {
+        var output: Float = 0
+        var count: Float = 0
+        for reading in readings {
+            if reading > 0 {
+                output += reading
+                count += 1
+            }
+
+        }
+        output /= count
+        return output
     }
     
     //UI update functions
