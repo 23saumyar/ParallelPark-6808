@@ -45,14 +45,7 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         UI_tryAgain()
-//        UI_backUp()
-//        UI_turnWheelRight()
-//        UI_turnWheelLeft()
-//        UI_moveUp()
-//        UI_complete()
-        
         SensorModel.shared.delegate = self
     }
 
@@ -105,18 +98,10 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
             canPark = true
             
             DispatchQueue.background(background: {
-                // do something in background
-                
                 print("calling park() function")
                 self.park()
-                
-                
             }, completion:{
-                // when background job finished, do something in main thread
-                
             })
-            
-
         }
         
         NSLog("receive readings")
@@ -126,8 +111,6 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
 //        self.tableView.reloadData()
     }
     
-
-// working parking pseudo code:
     
     func park() {
         print("in park() function")
@@ -155,7 +138,6 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
 
             if inRange(value: mirror, target: threeFeetInMillimeter, threshold: threshold) && inRange(value: side, target: threeFeetInMillimeter, threshold: threshold) {
                 UI_backUp()
-                print("@user - start backing up!")
                 //store compass measurements
                 //command user to begin backing up (until the back > 3 ft)
                 print("command user to begin backing up")
@@ -189,13 +171,6 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
                 print("state 3")
                 print("command user to turn the wheel one full rotation to the right and start backing up slowly")
             }
-//            else {
-//                UI_tryAgain()
-//                print("position doesn't seem right - try starting over")
-//                state = 1
-//                // self.spoken = 0
-//                print("state 1")
-//            }
         }
         
         while state == 3 {
