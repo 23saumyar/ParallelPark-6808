@@ -47,8 +47,29 @@ class InProgressViewController: UIViewController, SensorModelDelegate {
         super.viewDidLoad()
         UI_foundSpace()
         SensorModel.shared.delegate = self
+        
+        
+        // delay changes
+//        UI_changes_delay()
+        
+        
     }
 
+    
+    func UI_changes_delay(){
+        self.view.backgroundColor = UIColor.orange
+        self.textLabel.text = "Keep moving forward to align into the space for  more meters"
+        Thread.sleep(forTimeInterval: 10)
+        self.textLabel.text = "Stoop"
+        self.view.backgroundColor = UIColor.red
+        Thread.sleep(forTimeInterval: 10)
+        self.view.backgroundColor = UIColor.orange
+        self.textLabel.text = "Keep moving forward to align into the space for  more meters"
+        let VC = self.storyboard?.instantiateViewController(withIdentifier: "FinishViewController") as! FinishViewController
+        VC.textSent = "Great job, you've successfully parked. 1050 mm \n from the front car. \n 1061 mm \n from the back car."
+        self.present(VC, animated: true, completion: nil)
+
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
